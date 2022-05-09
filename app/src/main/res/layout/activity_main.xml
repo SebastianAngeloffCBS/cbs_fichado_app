@@ -31,12 +31,27 @@
             android:layout_marginTop="50dp"
             app:srcCompat="@mipmap/logo" />
 
+        <EditText
+            android:id="@+id/editTextNumberPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="10dp"
+            android:ems="10"
+            android:hint="INGRESE EL IMEI DEL TELÉFONO"
+            android:inputType="number"
+            android:maxLength="27"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/btn_conectar"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:shadowColor="@android:color/holo_red_light"
             android:text="CONECTAR CON SERVIDOR"
@@ -47,7 +62,7 @@
             android:id="@+id/txtderechos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="100dp"
             android:fontFamily="sans-serif-black"
             android:text="DERECHOS RESERVADOS"
             android:textAlignment="center"
