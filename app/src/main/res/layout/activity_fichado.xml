@@ -5,15 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Fichado">
+
 
     <LinearLayout
         android:id="@+id/conetendor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="234dp">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textView2"
@@ -21,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-black"
-            android:text="APP DE FICHADO"
+            android:text="REGISTRO DE FICHADO"
             android:textAlignment="center"
             android:textSize="25dp" />
 
@@ -32,33 +31,33 @@
             android:layout_marginTop="50dp"
             app:srcCompat="@mipmap/logo" />
 
-        <EditText
-            android:id="@+id/editTextNumberPassword"
+        <Button
+            android:id="@+id/btn_leer_qr"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:layout_marginRight="10dp"
-            android:ems="10"
-            android:hint="INGRESE EL IMEI DEL TELÉFONO"
-            android:inputType="number"
-            android:maxLength="27"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:shadowColor="@android:color/holo_red_light"
+            android:text="LEER QR"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="20dp" />
+
 
         <Button
-            android:id="@+id/btn_conectar"
+            android:id="@+id/btn_leer_cara"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:shadowColor="@android:color/holo_red_light"
-            android:text="CONECTAR CON SERVIDOR"
+            android:text="AUTENTICACIÓN BIOMÉTRICA"
             android:textColor="@android:color/holo_red_light"
-            android:textSize="20dp"
-            android:onClick="conectar" />
+            android:textSize="20dp" />
+
+
+
 
         <TextView
             android:id="@+id/txtderechos"
@@ -73,6 +72,7 @@
 
 
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
