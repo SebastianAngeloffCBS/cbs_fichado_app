@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BuildAttributionWarningsFilter">
+    <option name="noGCSettingWarning" value="true" />
+  </component>
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CBS_Fichado_APP/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/CBS_Fichado_APP/cbs_fichado_app/app/src/main/res/layout/activity_fichado.xml" value="0.36666666666666664" />
         <entry key="..\:/CBS_Fichado_APP/cbs_fichado_app/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/drawable/ic_launcher_background.xml" value="0.11" />

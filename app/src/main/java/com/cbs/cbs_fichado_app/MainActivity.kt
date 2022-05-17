@@ -1,20 +1,17 @@
 package com.cbs.cbs_fichado_app
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.GsonBuilder
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import java.net.HttpURLConnection
-import java.net.URL
-import java.net.URLEncoder
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,57 +23,94 @@ class MainActivity : AppCompatActivity() {
 
     fun conectar(view: View) {
 
-        // var IMEI  = findViewById<EditText>(R.id.editTextNumberPassword).text.toString()
-        // sendPost(IMEI)
+         var IMEI  = findViewById<EditText>(R.id.editTextNumberPassword).text.toString()
+         sendPost(IMEI)
 
         //Si el WS se valido correctamente se pasa a la segunda pantalla
-        val PantallaFichado = Intent(this, Fichado::class.java)
-        startActivity(PantallaFichado)
+        // val PantallaFichado = Intent(this, Fichado::class.java)
+        // startActivity(PantallaFichado)
 
 
     }
 
     fun sendPost(IMEI:String) {
 
-        //Define url para realizar peticion POST.
-        var urlPost = "http://ws.grupocbs.com.ar/API/TELEFONOS"
+        //Envio por Get
+//        val textView = findViewById<TextView>(R.id.txtderechos)
+//        val queue = Volley.newRequestQueue(this)
+//        val url = "http://www.google.com"
+//        val stringRequest = StringRequest(
+//        Request.Method.GET,
+//        url,
+//        Response.Listener<String> { response -> textView.text = "Response is: ${response.substring(0, 500)}" },
+//        Response.ErrorListener { textView.text = "That didn't work!" })
+//        queue.add(stringRequest)
 
-        //Concatena y codifica parámetros.
-        var reqParam = URLEncoder.encode("IMEI", "UTF-8") + "=" + URLEncoder.encode(IMEI, "UTF-8")
+//        val queue = Volley.newRequestQueue(this)
+
+        val url = "http://ws.grupocbs.com.ar/API/TELEFONOS/GetTelefono"
+
+//        val paramJson = JSONObject()
+//
+//        paramJson.put("IMEI", "355969783220715")
+        //paramJson.put("key2", "value2")
 
 
-        val mURL = URL(urlPost)
 
-        with(mURL.openConnection() as HttpURLConnection) {
-            //Define metodo
-            requestMethod = "POST"
+        val queue = Volley.newRequestQueue(this@MainActivity)
 
-            val wr = OutputStreamWriter(getOutputStream());
-            wr.write(reqParam);
-            wr.flush();
 
-            println(requestMethod + "URL : $url")
-            println(requestMethod + "Response Code : $responseCode")
+        val request: StringRequest = object : StringRequest(
+            Method.POST, url,
+            Response.Listener { response ->
 
-            BufferedReader(InputStreamReader(inputStream)).use {
-                val response = StringBuffer()
+                Toast.makeText(this@MainActivity, "Data added to API", Toast.LENGTH_SHORT).show()
+                try {
 
-                var inputLine = it.readLine()
-                while (inputLine != null) {
-                    response.append(inputLine)
-                    inputLine = it.readLine()
+                    val respObj = JSONObject(response)
+
+                    //val name = respObj.getString("name")
+
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
-                it.close()
-                //imprime respuesta.
+            },
+            Response.ErrorListener { error -> // method to handle errors.
+                Toast.makeText(
+                    this@MainActivity,
+                    "Fail to get response = $error",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }) {
+            override fun getParams(): Map<String, String> {
+                val params: MutableMap<String, String> = HashMap()
 
-                var mensaje : String = "Respuesta : $response"
+                params["IMEI"] = "355969783220715"
 
-                // Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
-
-
+                return params
             }
         }
+        queue.add(request)
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
