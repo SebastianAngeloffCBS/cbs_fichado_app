@@ -19,7 +19,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="sans-serif-black"
             android:text="APP DE FICHADO"
             android:textAlignment="center"
@@ -29,23 +29,64 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="214dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             app:srcCompat="@mipmap/logo" />
 
-        <EditText
-            android:id="@+id/editTextNumberPassword"
+        <TextView
+            android:id="@+id/lblUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-black"
+            android:text="USUARIO:"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/txtUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:ems="10"
-            android:hint="INGRESE EL IMEI DEL TELÉFONO"
-            android:inputType="number"
+            android:hint="USUARIO"
+            android:inputType="text"
+            android:maxLength="40"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/lblpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-black"
+            android:text="CONTRASEÑA:"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/txtPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:ems="10"
+            android:hint="CONTRASEÑA"
+            android:inputType="text"
             android:maxLength="27"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="25dp"
             android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/btn_conectar"
@@ -64,7 +105,7 @@
             android:id="@+id/txtderechos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-black"
             android:text="DERECHOS RESERVADOS"
             android:textAlignment="center"

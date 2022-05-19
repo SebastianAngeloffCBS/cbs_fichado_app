@@ -1,78 +1,89 @@
 package com.cbs.cbs_fichado_app
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.json.JSONException
 import org.json.JSONObject
+import kotlin.reflect.typeOf
 
 
 class MainActivity : AppCompatActivity() {
 
+//    val app = applicationContext as UsuarioApp
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //CONSULTO LOS DATOS EN SQLite SI EXISTEN REDIRIJO A LA PANTALLA DE FICHADO
+
+//        var tieneuser = app.room.usuarioDao().getAll()
+//        if (tieneuser == null){
+//            Toast.makeText(this, "No tiene user", Toast.LENGTH_SHORT).show()
+//        }else{
+//            Toast.makeText(this, "Tiene user", Toast.LENGTH_SHORT).show()
+//
+//        }
+
+
     }
 
     fun conectar(view: View) {
 
-         var IMEI  = findViewById<EditText>(R.id.editTextNumberPassword).text.toString()
-         sendPost(IMEI)
+        //Verifico la conexión a internet
 
-        //Si el WS se valido correctamente se pasa a la segunda pantalla
-        // val PantallaFichado = Intent(this, Fichado::class.java)
-        // startActivity(PantallaFichado)
-
+        var txtUser  = findViewById<EditText>(R.id.txtUser).text.toString()
+        var txtPass  = findViewById<EditText>(R.id.txtPass).text.toString()
+         sendPost(txtUser, txtPass)
 
     }
 
-    fun sendPost(IMEI:String) {
-
-        //Envio por Get
-//        val textView = findViewById<TextView>(R.id.txtderechos)
-//        val queue = Volley.newRequestQueue(this)
-//        val url = "http://www.google.com"
-//        val stringRequest = StringRequest(
-//        Request.Method.GET,
-//        url,
-//        Response.Listener<String> { response -> textView.text = "Response is: ${response.substring(0, 500)}" },
-//        Response.ErrorListener { textView.text = "That didn't work!" })
-//        queue.add(stringRequest)
-
-//        val queue = Volley.newRequestQueue(this)
-
-        val url = "http://ws.grupocbs.com.ar/API/TELEFONOS/GetTelefono"
-
-//        val paramJson = JSONObject()
+//    fun guardarDatos(usuario : Usuario) {
 //
-//        paramJson.put("IMEI", "355969783220715")
-        //paramJson.put("key2", "value2")
+//        var user = UsuarioEntity(0,usuario.idusuario,usuario.usuario,usuario.password,usuario.perfil)
+//
+//        app.room.usuarioDao().insert(user)
+//    }
 
+    fun sendPost(txtUser: String, txtPass: String) {
 
+        val url = "http://ws.grupocbs.com.ar/api/Telefonos/VerificaUsePass"
 
         val queue = Volley.newRequestQueue(this@MainActivity)
 
-
         val request: StringRequest = object : StringRequest(
-            Method.POST, url,
+            Method.POST,
+            url,
             Response.Listener { response ->
+                try
+                {
+                    val mapper = jacksonObjectMapper()
 
-                Toast.makeText(this@MainActivity, "Data added to API", Toast.LENGTH_SHORT).show()
-                try {
+                    val usuario : Usuario = mapper.readValue(response)
 
-                    val respObj = JSONObject(response)
+//                    guardarDatos(usuario)
 
-                    //val name = respObj.getString("name")
+                    val fichado = Intent(this, Fichado::class.java)
 
+                    fichado.putExtra("UsuarioIntra", usuario.usuario)
 
-                } catch (e: JSONException) {
+                    startActivity(fichado)
+                }
+                catch (e: JSONException)
+                {
                     e.printStackTrace()
                 }
             },
@@ -86,7 +97,8 @@ class MainActivity : AppCompatActivity() {
             override fun getParams(): Map<String, String> {
                 val params: MutableMap<String, String> = HashMap()
 
-                params["IMEI"] = "355969783220715"
+                params["user"] = txtUser
+                params["pass"] = txtPass
 
                 return params
             }
@@ -94,23 +106,25 @@ class MainActivity : AppCompatActivity() {
         queue.add(request)
 
 
-
-
-
     }
 
+    //Recorrer el json de a 1 dato
+    // val respObj = JSONObject(response)
+    // var idusuario = respObj.getString("idusuario")
+    // var usuario = respObj.getString("usuario")
+    // var password = respObj.getString("password")
+    // var perfil = respObj.getString("perfil")
 
-
-
-
-
-
-
-
-
-
-
-
-
+    //Envio por Get
+    //        val textView = findViewById<TextView>(R.id.txtderechos)
+    //        val queue = Volley.newRequestQueue(this)
+    //        val url = "http://www.google.com"
+    //        val stringRequest = StringRequest(
+    //        Request.Method.GET,
+    //        url,
+    //        Response.Listener<String> { response -> textView.text = "Response is: ${response.substring(0, 500)}" },
+    //        Response.ErrorListener { textView.text = "That didn't work!" })
+    //        queue.add(stringRequest)
+    //        val queue = Volley.newRequestQueue(this)
 
 }

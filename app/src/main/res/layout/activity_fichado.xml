@@ -18,9 +18,18 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="sans-serif-black"
             android:text="REGISTRO DE FICHADO"
+            android:textAlignment="center"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/txtUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-black"
             android:textAlignment="center"
             android:textSize="25dp" />
 
@@ -36,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="100dp"
             android:layout_marginRight="10dp"
             android:shadowColor="@android:color/holo_red_light"
             android:text="LEER QR"
@@ -44,17 +53,7 @@
             android:textSize="20dp" />
 
 
-        <Button
-            android:id="@+id/btn_leer_cara"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:shadowColor="@android:color/holo_red_light"
-            android:text="AUTENTICACIÓN BIOMÉTRICA"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="20dp" />
+
 
 
 
