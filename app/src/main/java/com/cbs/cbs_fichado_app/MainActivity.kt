@@ -1,45 +1,60 @@
 package com.cbs.cbs_fichado_app
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.json.JSONException
-import org.json.JSONObject
-import kotlin.reflect.typeOf
 
 
 class MainActivity : AppCompatActivity() {
 
-//    val app = applicationContext as UsuarioApp
+    //val app = applicationContext as UsuarioApp
+
+    private var tienePermisoInternet = false
+    private val CODIGO_PERMISOS_INTERNET = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Solicitar permisos acceso a internet
+
+       
+
+
+
+
         //CONSULTO LOS DATOS EN SQLite SI EXISTEN REDIRIJO A LA PANTALLA DE FICHADO
 
-//        var tieneuser = app.room.usuarioDao().getAll()
-//        if (tieneuser == null){
-//            Toast.makeText(this, "No tiene user", Toast.LENGTH_SHORT).show()
-//        }else{
-//            Toast.makeText(this, "Tiene user", Toast.LENGTH_SHORT).show()
-//
-//        }
+        // var tieneuser = app.room.usuarioDao().getAll()
+        // if (tieneuser == null){
+        //       Toast.makeText(this, "No tiene user", Toast.LENGTH_SHORT).show()
+        //    }else{
+        //       Toast.makeText(this, "Tiene user", Toast.LENGTH_SHORT).show()
+        //
+        //   }
 
 
     }
+
+
+
+
+
 
     fun conectar(view: View) {
 
@@ -51,12 +66,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    fun guardarDatos(usuario : Usuario) {
-//
-//        var user = UsuarioEntity(0,usuario.idusuario,usuario.usuario,usuario.password,usuario.perfil)
-//
-//        app.room.usuarioDao().insert(user)
-//    }
+    //    fun guardarDatos(usuario : Usuario) {
+    //
+    //        var user = UsuarioEntity(0,usuario.idusuario,usuario.usuario,usuario.password,usuario.perfil)
+    //
+    //        app.room.usuarioDao().insert(user)
+    //    }
 
     fun sendPost(txtUser: String, txtPass: String) {
 
