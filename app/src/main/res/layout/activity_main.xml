@@ -81,13 +81,18 @@
             android:layout_marginRight="10dp"
             android:ems="10"
             android:hint="CONTRASEÑA"
-            android:inputType="text"
+            android:inputType="text|textWebPassword"
             android:maxLength="27"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="25dp"
             android:textStyle="bold" />
 
-
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btn_conectar"
             android:layout_width="match_parent"
@@ -111,6 +116,8 @@
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textSize="12dp" />
+
+
 
 
     </LinearLayout>

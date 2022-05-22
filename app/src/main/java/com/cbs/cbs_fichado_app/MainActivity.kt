@@ -1,77 +1,98 @@
 package com.cbs.cbs_fichado_app
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import kotlinx.coroutines.flow.count
 import org.json.JSONException
-
+import org.json.JSONObject
+import java.util.*
+import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
 
-    //val app = applicationContext as UsuarioApp
-
-    private var tienePermisoInternet = false
-    private val CODIGO_PERMISOS_INTERNET = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
-        //Solicitar permisos acceso a internet
+        var progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        progressBar.isVisible = false
 
-       
+        val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+        val bd = admin.writableDatabase
+        val fila = bd.rawQuery("select * from usuario", null)
+        if (fila.moveToFirst()) {
+
+            bd.close()
+
+            val fichado = Intent(this, RegistroFichado::class.java)
+
+            fichado.putExtra("UsuarioIntra", fila.getString(1))
 
 
+            startActivity(fichado)
+
+        } else {
+            Toast.makeText(this, "Debe validar el usuario", Toast.LENGTH_SHORT)
+                .show()
+            bd.close()
+        }
 
 
-        //CONSULTO LOS DATOS EN SQLite SI EXISTEN REDIRIJO A LA PANTALLA DE FICHADO
-
-        // var tieneuser = app.room.usuarioDao().getAll()
-        // if (tieneuser == null){
-        //       Toast.makeText(this, "No tiene user", Toast.LENGTH_SHORT).show()
-        //    }else{
-        //       Toast.makeText(this, "Tiene user", Toast.LENGTH_SHORT).show()
-        //
-        //   }
 
 
     }
-
-
-
-
 
 
     fun conectar(view: View) {
 
-        //Verifico la conexión a internet
+        view.isVisible = false
 
-        var txtUser  = findViewById<EditText>(R.id.txtUser).text.toString()
-        var txtPass  = findViewById<EditText>(R.id.txtPass).text.toString()
-         sendPost(txtUser, txtPass)
+        var progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        progressBar.isVisible = true
+
+        var txtUser =
+            findViewById<EditText>(R.id.txtUser).text.toString().lowercase()
+        var txtPass = findViewById<EditText>(R.id.txtPass).text.toString()
+
+        if (txtUser == "" || txtPass == "")
+        {
+            view.isVisible = true
+
+            var progressBar = findViewById<ProgressBar>(R.id.progressBar)
+            progressBar.isVisible = false
+            Toast.makeText(this, "Debe completar el usuario y contraseña", Toast.LENGTH_SHORT)
+                .show()
+        }
+        else
+        {
+            sendPost(txtUser, txtPass)
+
+        }
+
 
     }
-
-    //    fun guardarDatos(usuario : Usuario) {
-    //
-    //        var user = UsuarioEntity(0,usuario.idusuario,usuario.usuario,usuario.password,usuario.perfil)
-    //
-    //        app.room.usuarioDao().insert(user)
-    //    }
 
     fun sendPost(txtUser: String, txtPass: String) {
 
@@ -87,15 +108,30 @@ class MainActivity : AppCompatActivity() {
                 {
                     val mapper = jacksonObjectMapper()
 
-                    val usuario : Usuario = mapper.readValue(response)
+                    val userData: Usuario = mapper.readValue(response)
 
-//                    guardarDatos(usuario)
+                    if (userData.idusuario != "0")
+                    {
+                        guardarDatos(userData)
 
-                    val fichado = Intent(this, Fichado::class.java)
+                        val fichado = Intent(this, RegistroFichado::class.java)
 
-                    fichado.putExtra("UsuarioIntra", usuario.usuario)
+                        fichado.putExtra("UsuarioIntra", userData.usuario)
 
-                    startActivity(fichado)
+                        startActivity(fichado)
+                    }
+                    else
+                    {
+                        var progressBar = findViewById<ProgressBar>(R.id.progressBar)
+                        progressBar.isVisible = false
+                        var boton = findViewById<Button>(R.id.btn_conectar)
+                        boton.isVisible = true
+
+
+                        Toast.makeText(this, "USUARIO/CONTRASEÑA INCORRECTOS", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
                 }
                 catch (e: JSONException)
                 {
@@ -122,6 +158,22 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+
+    fun guardarDatos(usuario : Usuario) {
+
+        val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
+        val bd = admin.writableDatabase
+        val registro = ContentValues()
+        registro.put("idusuario", usuario.idusuario)
+        registro.put("usuario", usuario.usuario)
+        registro.put("password", usuario.password)
+        registro.put("perfil", usuario.perfil)
+        bd.insert("usuario", null, registro)
+        bd.close()
+    }
+
 
     //Recorrer el json de a 1 dato
     // val respObj = JSONObject(response)
