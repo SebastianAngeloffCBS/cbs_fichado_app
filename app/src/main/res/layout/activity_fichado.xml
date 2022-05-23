@@ -9,8 +9,8 @@
     tools:openDrawer="start">
 
     <include
-        android:id="@+id/app_bar_registro_fichado"
-        layout="@layout/app_bar_registro_fichado"
+        android:id="@+id/app_bar_fichado"
+        layout="@layout/app_bar_fichado"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -20,7 +20,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_registro_fichado"
-        app:menu="@menu/registro_fichado_drawer" />
-
+        app:headerLayout="@layout/nav_header_fichado"
+        app:menu="@menu/activity_fichado_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

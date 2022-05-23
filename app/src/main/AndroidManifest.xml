@@ -12,13 +12,25 @@
         android:theme="@style/Theme.Cbs_fichado_app"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".FichadoActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_fichado2"
+            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
+        <activity
+            android:name=".Fichado"
+            android:exported="false"
+            android:label="@string/title_activity_fichado"
+            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
+        <activity
+            android:name=".testing"
+            android:exported="false"
+            android:label="@string/title_activity_testing"
+            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
+        <activity
             android:name=".RegistroFichado"
             android:exported="false"
             android:label="@string/title_activity_registro_fichado"
             android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
-        <activity
-            android:name=".Fichado"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

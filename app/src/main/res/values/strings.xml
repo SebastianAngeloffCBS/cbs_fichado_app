@@ -8,7 +8,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Reconfigurar</string>
 
-    <string name="menu_home">REGISTRO DE FICHADO</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_home">REGISTRAR FICHADO</string>
+    <string name="menu_gallery">SINCRONIZACIÓN</string>
+    <string name="menu_slideshow">RECONFIGURAR</string>
+    <string name="title_activity_testing">testing</string>
+    <string name="title_activity_fichado">Fichado</string>
+    <string name="title_activity_fichado2">FichadoActivity2</string>
 </resources>

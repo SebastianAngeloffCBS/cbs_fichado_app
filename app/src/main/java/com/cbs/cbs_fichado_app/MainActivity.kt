@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
             bd.close()
 
-            val fichado = Intent(this, RegistroFichado::class.java)
+            val fichado = Intent(this, Fichado::class.java)
 
             fichado.putExtra("UsuarioIntra", fila.getString(1))
 
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                     {
                         guardarDatos(userData)
 
-                        val fichado = Intent(this, RegistroFichado::class.java)
+                        val fichado = Intent(this, Fichado::class.java)
 
                         fichado.putExtra("UsuarioIntra", userData.usuario)
 
