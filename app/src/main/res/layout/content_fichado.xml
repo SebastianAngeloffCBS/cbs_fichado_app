@@ -61,7 +61,8 @@
             android:shadowColor="@android:color/holo_red_light"
             android:text="LEER QR"
             android:textColor="@android:color/holo_red_light"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:onClick="leerqr"/>
 
 
 

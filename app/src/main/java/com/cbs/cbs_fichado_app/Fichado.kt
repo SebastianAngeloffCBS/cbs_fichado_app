@@ -1,9 +1,14 @@
 package com.cbs.cbs_fichado_app
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -17,6 +22,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.cbs.cbs_fichado_app.databinding.ActivityFichadoBinding
+import com.google.zxing.integration.android.IntentIntegrator
 
 class Fichado : AppCompatActivity() {
 
@@ -37,15 +43,9 @@ class Fichado : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarFichado.toolbar)
 
-//        binding.appBarFichado.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_fichado)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
@@ -56,7 +56,6 @@ class Fichado : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.fichado, menu)
         return true
     }
@@ -69,13 +68,10 @@ class Fichado : AppCompatActivity() {
     fun reconfigurar(item: MenuItem) {
 
         val builder = AlertDialog.Builder(this)
-        //set title for alert dialog
         builder.setTitle("ATENCIÓN")
-        //set message for alert dialog
         builder.setMessage("SE BORRARA EL USUARIO/A DE LA BASE DE DATOS. ¿ ESTA SEGURO/A?")
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
-        //performing positive action
         builder.setPositiveButton("SI"){dialogInterface, which ->
             val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
             val bd = admin.writableDatabase
@@ -86,22 +82,78 @@ class Fichado : AppCompatActivity() {
 
             startActivity(fichado)
         }
-        //performing cancel action
-//        builder.setNeutralButton("Cancel"){dialogInterface , which ->
-//            Toast.makeText(applicationContext,"clicked cancel\n operation cancel",Toast.LENGTH_LONG).show()
-//        }
-        //performing negative action
+
         builder.setNegativeButton("NO"){dialogInterface, which ->
             Toast.makeText(applicationContext,"OPERACIÓN CANCELADA", Toast.LENGTH_LONG).show()
         }
-        // Create the AlertDialog
         val alertDialog: AlertDialog = builder.create()
-        // Set other dialog properties
         alertDialog.setCancelable(false)
         alertDialog.show()
 
+    }
+
+    fun leerqr(view: View) {
+
+        IntentIntegrator(this).initiateScan()
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
 
 
+                //obtengo el texto devuelvo por el qr(Dimensión)
+                //depliego un modal en donde el usuario ingresa el dni
+
+                mostrarModal()
+
+
+
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+
+    }
+
+   fun mostrarModal() {
+
+       val builder = AlertDialog.Builder(this)
+       builder.setTitle("INGRESE SU DNI")
+
+       // Set up the input
+       val input = EditText(this)
+       // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+       input.setHint("DNI")
+       input.inputType = InputType.TYPE_CLASS_NUMBER
+       builder.setView(input)
+
+       // Set up the buttons
+       builder.setPositiveButton("INGRESAR", DialogInterface.OnClickListener { dialog, which ->
+           // Here you get get input text from the Edittext
+           var dni = input.text.toString()
+           validaPersonal(dni)
+       })
+
+       builder.setNegativeButton("CANCELAR", DialogInterface.OnClickListener { dialog, which ->
+           dialog.cancel()
+           Toast.makeText(this, "Fichado cancelado", Toast.LENGTH_LONG).show()
+       })
+
+       builder.show()
+
+   }
+
+
+    fun validaPersonal(dni : String){
+
+        //Me conecto al servidor para validar la persona
 
 
     }

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cbs.cbs_fichado_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
 
     <application
         android:allowBackup="true"
@@ -10,27 +14,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cbs_fichado_app"
+        android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true">
+
         <activity
-            android:name=".FichadoActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_fichado2"
-            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
+
         <activity
             android:name=".Fichado"
             android:exported="false"
             android:label="@string/title_activity_fichado"
             android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
-        <activity
-            android:name=".testing"
-            android:exported="false"
-            android:label="@string/title_activity_testing"
-            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
-        <activity
-            android:name=".RegistroFichado"
-            android:exported="false"
-            android:label="@string/title_activity_registro_fichado"
-            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

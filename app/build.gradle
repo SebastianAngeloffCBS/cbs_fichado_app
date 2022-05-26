@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.cbs.cbs_fichado_app"
-        minSdk 22
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 
 
     testImplementation 'junit:junit:4.13.2'
