@@ -3,8 +3,6 @@ package com.cbs.cbs_fichado_app
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
@@ -28,8 +26,6 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.android.material.navigation.NavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONException
-import java.util.*
-import kotlin.collections.HashMap
 
 
 class Fichado : AppCompatActivity() {
@@ -43,12 +39,6 @@ class Fichado : AppCompatActivity() {
 
         binding = ActivityFichadoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val bundle = intent.extras
-        val dato = bundle?.getString("UsuarioIntra")
-
-//        val txtUsuario = findViewById<TextView>(R.id.txtUsuario)
-//        txtUsuario.setText(dato)
 
         setSupportActionBar(binding.appBarFichado.toolbar)
 
@@ -64,6 +54,16 @@ class Fichado : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
 
+        //Desabilito la seccion de fechas en el calendario
+
+
+        val calendarView = findViewById<CalendarView>(R.id.calendarView)
+
+        val selectedDate: Long = calendarView.getDate()
+
+        calendarView.setMinDate(selectedDate)
+
+        calendarView.setMaxDate(selectedDate)
 
 
     }
@@ -120,13 +120,7 @@ class Fichado : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
 
-
-                //obtengo el texto devuelvo por el qr(Dimensión)
-                //depliego un modal en donde el usuario ingresa el dni
-
                 mostrarModal()
-
-
 
             }
         } else {
@@ -135,33 +129,31 @@ class Fichado : AppCompatActivity() {
 
     }
 
-   fun mostrarModal() {
+    fun mostrarModal() {
 
-       val builder = AlertDialog.Builder(this)
-       builder.setTitle("INGRESE SU DNI")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("FICHADO")
 
-       // Set up the input
-       val input = EditText(this)
-       // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-       input.setHint("DNI")
-       input.inputType = InputType.TYPE_CLASS_NUMBER
-       builder.setView(input)
+        val customLayout: View = layoutInflater
+            .inflate(
+                R.layout.modal_dni,
+                null)
+        builder.setView(customLayout)
 
-       // Set up the buttons
-       builder.setPositiveButton("INGRESAR", DialogInterface.OnClickListener { dialog, which ->
-           // Here you get get input text from the Edittext
-           var dni = input.text.toString()
-           validaPersonal(dni)
-       })
+        builder.setPositiveButton("REGISTRAR FICHARO", DialogInterface.OnClickListener { dialog, which ->
 
-       builder.setNegativeButton("CANCELAR", DialogInterface.OnClickListener { dialog, which ->
-           dialog.cancel()
-           Toast.makeText(this, "Fichado cancelado", Toast.LENGTH_LONG).show()
-       })
+            val editText = customLayout.findViewById<EditText>(R.id.dni)
 
-       builder.show()
+            var dni = editText.text.toString()
+            validaPersonal(dni)
+        })
 
-   }
+        val dialog = builder.create()
+        dialog.show()
+
+    }
+
+
 
 
     fun validaPersonal(dni : String){
@@ -183,15 +175,13 @@ class Fichado : AppCompatActivity() {
 
                     if (userData.codemp != "0")
                     {
-//                        guardarDatos(userData)
-//
-//                        val fichado = Intent(this, Fichado::class.java)
-//
-//                        fichado.putExtra("UsuarioIntra", userData.usuario)
-//
-//                        startActivity(fichado)
-                        Toast.makeText(this, userData.nombreapellido, Toast.LENGTH_SHORT)
-                            .show()
+
+                        val datoPersona = Intent(this, DatosPersonal::class.java)
+
+                        datoPersona.putExtra("Persona", userData.nombreapellido)
+
+                        startActivity(datoPersona)
+
                     }
                     else
                     {

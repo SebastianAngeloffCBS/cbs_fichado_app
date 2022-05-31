@@ -3,31 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.cbs.cbs_fichado_app">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/registrofichadocbs"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cbs_fichado_app"
-        android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".DatosPersonal"
+            android:exported="false" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-
         <activity
             android:name=".Fichado"
             android:exported="false"
             android:label="@string/title_activity_fichado"
             android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
