@@ -19,70 +19,87 @@
         app:navGraph="@navigation/mobile_navigation3" />
 
 
-    <LinearLayout
-        android:id="@+id/conetendor"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/conetendor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView2"
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="301dp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="sans-serif-black"
-            android:text="USUARIO/A"
-            android:textAlignment="center"
-            android:textSize="25dp" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txtUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-black"
-            android:textAlignment="center"
-            android:textSize="25dp" />
+            <DigitalClock
+                android:textSize="60dp"
+                android:textColor="#EF3742"
+                android:theme="@style/CardView.Dark"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
+                android:textAlignment="textStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <AnalogClock
+                android:layout_marginStart="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="214dp"
-            android:layout_marginTop="50dp"
-            app:srcCompat="@mipmap/logo2" />
 
-        <Button
-            android:id="@+id/btn_leer_qr"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="10dp"
-            android:shadowColor="@android:color/holo_red_light"
-            android:text="LEER QR"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="20dp"
-            android:onClick="leerqr"/>
+        </LinearLayout>
 
 
 
 
+            <Button
+                android:id="@+id/btn_leer_qr"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:shadowColor="@android:color/holo_red_light"
+                android:text="LEER QR"
+                android:drawableLeft="@drawable/scan"
+                android:textColor="#EF3742"
+                android:textSize="20dp"
+                android:onClick="leerqr"/>
 
 
 
-        <TextView
-            android:id="@+id/txtderechos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:fontFamily="sans-serif-black"
-            android:text="DERECHOS RESERVADOS"
-            android:textAlignment="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginTop="50dp"
+                app:srcCompat="@mipmap/logo2" />
 
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txtderechos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="DERECHOS RESERVADOS"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 
 
