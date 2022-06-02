@@ -113,6 +113,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/btn_conectar"
             android:layout_width="match_parent"

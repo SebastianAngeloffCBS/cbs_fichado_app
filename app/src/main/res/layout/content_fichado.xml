@@ -30,16 +30,13 @@
             android:orientation="vertical" >
 
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="301dp"
-                android:saveEnabled="false"
-                android:touchscreenBlocksFocus="false" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <DigitalClock
@@ -59,21 +56,27 @@
 
             </LinearLayout>
 
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="301dp"
+                android:saveEnabled="false"
+                android:touchscreenBlocksFocus="false" />
 
 
 
             <Button
                 android:id="@+id/btn_leer_qr"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="85dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginRight="10dp"
                 android:shadowColor="@android:color/holo_red_light"
-                android:text="LEER QR"
+                android:text="LEER CÓDIGO QR"
                 android:drawableLeft="@drawable/scan"
                 android:textColor="#EF3742"
-                android:textSize="20dp"
+                android:textSize="24dp"
                 android:onClick="leerqr"/>
 
 

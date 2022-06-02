@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CargaPersona">
+
+    <Button
+        android:id="@+id/volver"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:shadowColor="@android:color/white"
+        android:text="VOLVER"
+        android:background="@color/white"
+        android:drawableLeft="@mipmap/volver"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:onClick="volver"
+        android:textSize="12dp" />
+
+    <ScrollView
+        android:layout_marginTop="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtNombrePersona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="REGISTRO PERSONA"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="26dp" />
+
+            <TextView
+                android:id="@+id/lbltitulo1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="BUSQUEDA DE PERSONA"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="21dp" />
+
+            <ImageView
+                android:id="@+id/imagenpresentacion"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/persona" />
+
+
+            <EditText
+                android:id="@+id/txtdni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:hint="INGRESE SU DNI"
+                android:textColorHint="#EF3742"
+                android:textSize="24dp"
+                android:fontFamily="monospace"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btn_buscar_persona"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:shadowColor="@android:color/holo_red_light"
+                android:text="BUSCAR PERSONA"
+                android:drawableRight="@mipmap/buscarpersona"
+                android:onClick="buscapersona"
+                android:textColor="#EF3742"
+                android:textSize="20dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/lbltitulo2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="DATOS PERSONA"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/lbltitulo3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textAlignment="textStart"
+                android:text="APELLIDO Y NOMBRE:"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/lblnombreapellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+
+
+
+
+
+
+
+            <Button
+                android:id="@+id/btn_guardar_persona"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:shadowColor="@android:color/holo_red_light"
+                android:text="GUARDAR PERSONA"
+                android:drawableRight="@mipmap/save"
+                android:onClick="guardar"
+                android:textColor="#EF3742"
+                android:textSize="20dp" />
+
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginTop="50dp"
+                app:srcCompat="@mipmap/logo2" />
+
+
+            <TextView
+                android:id="@+id/txtderechos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="DERECHOS RESERVADOS"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
             android:icon="@mipmap/fichadoicon"
@@ -14,6 +15,13 @@
             android:id="@+id/historial"
             android:icon="@mipmap/registrosfichado"
             android:title="HISTORIAL FICHADOS" />
+
+
+        <item
+            android:id="@+id/personal"
+            android:icon="@mipmap/personal"
+            android:onClick="cargapersonal"
+            android:title="REGISTRAR PERSONAL" />
 
         <item
             android:id="@+id/nav_gallery"

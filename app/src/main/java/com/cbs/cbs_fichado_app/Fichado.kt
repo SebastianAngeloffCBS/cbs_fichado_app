@@ -53,10 +53,6 @@ class Fichado : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
-        //Desabilito la seccion de fechas en el calendario
-
-
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
 
         val selectedDate: Long = calendarView.getDate()
@@ -65,6 +61,24 @@ class Fichado : AppCompatActivity() {
 
         calendarView.setMaxDate(selectedDate)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
+
+                cargarFichado()
+//                mostrarModal()
+
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
 
     }
 
@@ -78,6 +92,14 @@ class Fichado : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    fun cargarFichado(){
+
+        val datosPersonal = Intent(this, ValidacionPersona::class.java)
+
+        startActivity(datosPersonal)
+
+    }
+
     fun reconfigurar(item: MenuItem) {
 
         val builder = AlertDialog.Builder(this)
@@ -89,6 +111,8 @@ class Fichado : AppCompatActivity() {
             val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
             val bd = admin.writableDatabase
             val cant = bd.delete("usuario", null, null)
+            val cant2 = bd.delete("persona", null, null)
+
             bd.close()
 
             val fichado = Intent(this, MainActivity::class.java)
@@ -106,27 +130,7 @@ class Fichado : AppCompatActivity() {
     }
 
     fun leerqr(view: View) {
-
         IntentIntegrator(this).initiateScan()
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-
-        if (result != null) {
-            if (result.contents == null) {
-                Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
-
-                mostrarModal()
-
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-
     }
 
     fun mostrarModal() {
@@ -153,9 +157,6 @@ class Fichado : AppCompatActivity() {
 
     }
 
-
-
-
     fun validaPersonal(dni : String){
 
         //Me conecto al servidor para validar la persona
@@ -176,11 +177,11 @@ class Fichado : AppCompatActivity() {
                     if (userData.codemp != "0")
                     {
 
-                        val datoPersona = Intent(this, DatosPersonal::class.java)
+                        val validarPersona = Intent(this, ValidacionPersona()::class.java)
 
-                        datoPersona.putExtra("Persona", userData.nombreapellido)
+                        validarPersona.putExtra("Persona", userData.nombreapellido)
 
-                        startActivity(datoPersona)
+                        startActivity(validarPersona)
 
                     }
                     else
@@ -235,7 +236,9 @@ class Fichado : AppCompatActivity() {
 
     }
 
-
-
+    fun cargapersonal(item: MenuItem) {
+        val listado = Intent(this, ListadoPersonal()::class.java)
+        startActivity(listado)
+    }
 
 }

@@ -16,8 +16,15 @@
         android:theme="@style/Theme.Cbs_fichado_app"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".DatosPersonal"
+            android:name=".ListadoPersonal"
             android:exported="false" />
+        <activity
+            android:name=".CargaPersona"
+            android:exported="false" />
+        <activity
+            android:name=".ValidacionPersona"
+            android:exported="false" />
+
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
@@ -26,7 +33,9 @@
             android:name=".Fichado"
             android:exported="false"
             android:label="@string/title_activity_fichado"
-            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Cbs_fichado_app.NoActionBar"
+            tools:replace="screenOrientation" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

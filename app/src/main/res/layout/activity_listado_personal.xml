@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListadoPersonal">
+
+
+    <Button
+        android:id="@+id/volver"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:shadowColor="@android:color/white"
+        android:text="VOLVER"
+        android:background="@color/white"
+        android:drawableLeft="@mipmap/volver"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:onClick="volver"
+        android:textSize="12dp" />
+
+
+
+    <ScrollView
+        android:layout_marginTop="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/txtNombrePersona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="LISTADO DE PERSONAL"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="26dp" />
+
+            <TextView
+                android:id="@+id/lbltitulo1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="sans-serif-black"
+                android:text="ES NECESARIO INTERNET PARA AGREGAR PERSONAL"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="14dp" />
+
+
+
+
+            <Button
+                android:id="@+id/btn_buscar_persona"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:shadowColor="@android:color/holo_red_light"
+                android:text="AGREGAR PERSONAL"
+                android:onClick="cargarpersona"
+                android:drawableRight="@mipmap/accountplus"
+                android:textColor="#EF3742"
+                android:textSize="20dp" />
+
+            <ListView
+                android:id="@+id/listadopersonal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="400dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

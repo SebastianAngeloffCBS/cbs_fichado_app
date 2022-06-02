@@ -16,17 +16,22 @@
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/drawable/registrofichadoimg.xml" value="0.1" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
+        <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/activity_carga_persona.xml" value="0.10364583333333334" />
+        <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/activity_datos_personal.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/activity_fichado.xml" value="0.23541666666666666" />
+        <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/activity_listado_personal.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/activity_validacion_persona.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/app_bar_fichado.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/app_bar_registro_fichado.xml" value="0.23541666666666666" />
-        <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/content_fichado.xml" value="0.10364583333333334" />
+        <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/content_fichado.xml" value="0.25" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/content_fichado2.xml" value="0.1" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/content_registro_fichado.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/content_testing.xml" value="0.22135416666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/fragment_gallery.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/fragment_home.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/fragment_slideshow.xml" value="0.23541666666666666" />
+        <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/modal_dni.xml" value="0.10364583333333334" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/nav_header_fichado.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/nav_header_registro_fichado.xml" value="0.23541666666666666" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/layout/registro_fichado.xml" value="0.23541666666666666" />
