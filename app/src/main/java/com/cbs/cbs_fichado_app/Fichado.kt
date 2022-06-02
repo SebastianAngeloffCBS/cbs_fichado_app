@@ -70,9 +70,9 @@ class Fichado : AppCompatActivity() {
             if (result.contents == null) {
                 Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
+//                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
 
-                cargarFichado()
+                cargarFichado(result.contents)
 //                mostrarModal()
 
             }
@@ -92,10 +92,10 @@ class Fichado : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun cargarFichado(){
+    fun cargarFichado(data :String){
 
         val datosPersonal = Intent(this, ValidacionPersona::class.java)
-
+        datosPersonal.putExtra("dimension", data)
         startActivity(datosPersonal)
 
     }
@@ -238,6 +238,12 @@ class Fichado : AppCompatActivity() {
 
     fun cargapersonal(item: MenuItem) {
         val listado = Intent(this, ListadoPersonal()::class.java)
+        listado.putExtra("mensaje", "no")
+        startActivity(listado)
+    }
+
+    fun listadofichados(item: MenuItem) {
+        val listado = Intent(this, ListadoFichados()::class.java)
         startActivity(listado)
     }
 

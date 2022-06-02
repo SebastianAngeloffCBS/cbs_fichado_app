@@ -14,7 +14,8 @@
         <item
             android:id="@+id/historial"
             android:icon="@mipmap/registrosfichado"
-            android:title="HISTORIAL FICHADOS" />
+            android:title="HISTORIAL FICHADOS"
+            android:onClick="listadofichados"/>
 
 
         <item

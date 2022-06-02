@@ -18,11 +18,6 @@ class ListadoPersonal : AppCompatActivity() {
         binding = ActivityListadoPersonalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
-
-
-
         val bundle = intent.extras
         val dato = bundle?.getString("mensaje")
 
@@ -36,14 +31,14 @@ class ListadoPersonal : AppCompatActivity() {
         }
 
 
-        cargalistview()
+       cargalistview()
 
     }
 
     fun  cargalistview() {
 
         val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
-        val bd = admin.readableDatabase
+        val bd = admin.writableDatabase
         val fila = bd.rawQuery("select * from persona", null)
 
 
@@ -55,8 +50,7 @@ class ListadoPersonal : AppCompatActivity() {
 
             do {
 
-                arrayValues.add("DNI: "+fila.getString(0)+"\n"+
-                        "NOMBRE: "+fila.getString(1)+"\n");
+                arrayValues.add("DNI: "+fila.getString(0)+"\n" + "NOMBRE: "+fila.getString(1)+"\n")
 
 
             } while (fila.moveToNext())

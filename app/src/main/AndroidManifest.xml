@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Cbs_fichado_app"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ListadoFichados"
+            android:exported="false" />
+        <activity
             android:name=".ListadoPersonal"
             android:exported="false" />
         <activity
@@ -24,7 +27,6 @@
         <activity
             android:name=".ValidacionPersona"
             android:exported="false" />
-
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
