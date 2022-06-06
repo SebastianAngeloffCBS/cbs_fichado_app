@@ -137,7 +137,7 @@ class CargaPersona : AppCompatActivity() {
 
     fun guardar(view: View) {
 
-        val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
+        val admin = AdminSQLiteOpenHelper(this,"dbfichado", null, 1)
         val bd = admin.writableDatabase
         val registro = ContentValues()
         registro.put("dni", Documento)

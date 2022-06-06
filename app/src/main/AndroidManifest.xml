@@ -5,6 +5,7 @@
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cbs_fichado_app"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Sincronizar"
+            android:exported="false" />
         <activity
             android:name=".ListadoFichados"
             android:exported="false" />

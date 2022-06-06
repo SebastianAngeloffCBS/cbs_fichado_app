@@ -108,10 +108,11 @@ class Fichado : AppCompatActivity() {
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
         builder.setPositiveButton("SI"){dialogInterface, which ->
-            val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+            val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
             val bd = admin.writableDatabase
-            val cant = bd.delete("usuario", null, null)
-            val cant2 = bd.delete("persona", null, null)
+            val base1 = bd.delete("usuario", null, null)
+            val base2 = bd.delete("persona", null, null)
+            val base3 = bd.delete("fichado", null, null)
 
             bd.close()
 
@@ -244,6 +245,11 @@ class Fichado : AppCompatActivity() {
 
     fun listadofichados(item: MenuItem) {
         val listado = Intent(this, ListadoFichados()::class.java)
+        startActivity(listado)
+    }
+
+    fun sincronizardatos(item: MenuItem) {
+        val listado = Intent(this, Sincronizar()::class.java)
         startActivity(listado)
     }
 

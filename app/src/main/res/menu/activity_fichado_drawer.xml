@@ -27,6 +27,7 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@mipmap/sync"
+            android:onClick="sincronizardatos"
             android:title="@string/menu_gallery" />
 
         <item

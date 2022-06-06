@@ -72,6 +72,7 @@
                 android:layout_marginRight="10dp"
                 android:shadowColor="@android:color/holo_red_light"
                 android:text="MARCAR SALIDA"
+                android:onClick="salir"
                 android:drawableRight="@mipmap/ingreso"
                 android:textColor="#EF3742"
                 android:textSize="20dp" />

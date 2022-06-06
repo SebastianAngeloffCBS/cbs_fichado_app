@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         var progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.isVisible = false
 
-        val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
         val bd = admin.writableDatabase
         val fila = bd.rawQuery("select * from usuario", null)
         if (fila.moveToFirst()) {
@@ -159,11 +159,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
     fun guardarDatos(usuario : Usuario) {
 
-        val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
+        val admin = AdminSQLiteOpenHelper(this,"dbfichado", null, 1)
         val bd = admin.writableDatabase
         val registro = ContentValues()
         registro.put("idusuario", usuario.idusuario)
