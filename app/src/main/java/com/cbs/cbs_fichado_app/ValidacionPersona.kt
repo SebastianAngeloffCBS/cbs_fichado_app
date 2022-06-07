@@ -5,13 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -69,9 +66,15 @@ class ValidacionPersona : AppCompatActivity() {
 
 
         //Obtengo la fecha y la hora
-        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale("es", "ES"))
-        sdf.timeZone = TimeZone.getTimeZone("UTC+1")
-        val currentdate = sdf.format(Date())
+        val myTimeZone = TimeZone.getTimeZone("America/Argentina/Buenos_Aires")
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
+        simpleDateFormat.timeZone = myTimeZone
+        val currentdate = simpleDateFormat.format(Date())
+//        println("Venezuela: $dateTime")
+
+//        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("es", "ES"))
+//        sdf.timeZone = TimeZone.getTimeZone("UTC+1")
+//        val currentdate = sdf.format(Date())
 
 
         //3 Guardo el fichado en la base local
@@ -194,7 +197,6 @@ class ValidacionPersona : AppCompatActivity() {
         registro.put("sincronizado", "si")
         val cant = bd.update("fichado", registro, "Id=${IdUltimoRegistro}", null)
         bd.close()
-
 
     }
 

@@ -61,6 +61,7 @@
             android:layout_marginRight="10dp"
             android:fontFamily="sans-serif-black"
             android:text="USUARIO:"
+            android:textAllCaps="true"
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
             android:textSize="14sp" />

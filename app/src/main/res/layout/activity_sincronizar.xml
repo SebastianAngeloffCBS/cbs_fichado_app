@@ -19,6 +19,27 @@
         android:onClick="volver"
         android:textSize="12dp" />
 
+<!--    <ImageView-->
+<!--        android:id="@+id/gifcarga"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="214dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        app:srcCompat="@mipmap/logo2" />-->
+
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifcarga"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@mipmap/progress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </pl.droidsonroids.gif.GifImageView>
+
+
+
     <ScrollView
         android:layout_marginTop="35dp"
         android:layout_width="match_parent"
@@ -30,7 +51,20 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtNombrePersona"
+                android:id="@+id/txtsincronizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="SINCRONIZANDO DATOS"
+                android:layout_marginTop="100dp"
+                android:textAlignment="center"
+                android:textColor="#EF3742"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/txtTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
