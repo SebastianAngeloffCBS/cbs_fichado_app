@@ -46,18 +46,15 @@ class ValidacionPersona : AppCompatActivity() {
 
     fun fichar(ciclo :String){
 
-        //1 Obtengo el DNI
+        // 1 Obtengo el DNI
         var documento = binding.txtdni.text.toString()
 
 
-        //2 Verificar que la persona este en la bd local
+        // 2 Obtengo la persona
         val admin1 = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
         val bd1 = admin1.writableDatabase
-
-
         var queryApp : String = "select * from persona where dni='" + documento + "'"
         val fila1 = bd1.rawQuery(queryApp, null)
-
         var nombre : String = ""
         if (fila1.moveToFirst()){
             nombre = fila1.getString(1)
@@ -65,16 +62,11 @@ class ValidacionPersona : AppCompatActivity() {
         bd1.close()
 
 
-        //Obtengo la fecha y la hora
+        // 3 Obtengo la fecha y la hora
         val myTimeZone = TimeZone.getTimeZone("America/Argentina/Buenos_Aires")
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
         simpleDateFormat.timeZone = myTimeZone
         val currentdate = simpleDateFormat.format(Date())
-//        println("Venezuela: $dateTime")
-
-//        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("es", "ES"))
-//        sdf.timeZone = TimeZone.getTimeZone("UTC+1")
-//        val currentdate = sdf.format(Date())
 
 
         //3 Guardo el fichado en la base local
@@ -181,7 +173,7 @@ class ValidacionPersona : AppCompatActivity() {
         //Obtengo el id del utlimo registro
         val admin1 = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
         val bd1 = admin1.writableDatabase
-        var queryApp : String = "select * from fichado order by 1 asc LIMIT 1"
+        var queryApp : String = "select * from fichado order by id desc LIMIT 1"
         val fila1 = bd1.rawQuery(queryApp, null)
 
         var IdUltimoRegistro : String = ""

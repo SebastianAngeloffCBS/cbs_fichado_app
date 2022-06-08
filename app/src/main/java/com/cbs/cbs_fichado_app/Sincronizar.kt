@@ -1,5 +1,6 @@
 package com.cbs.cbs_fichado_app
 
+import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,8 +30,8 @@ class Sincronizar : AppCompatActivity() {
 
         binding.gifcarga.isVisible = false
         binding.txtsincronizar.isVisible = false
-
-
+        binding.imageView2.isVisible = false
+        binding.txtderechos.isVisible = false
         cargalistview()
 
     }
@@ -72,27 +73,32 @@ class Sincronizar : AppCompatActivity() {
     }
 
     fun  pantallaEspera(){
-
         binding.txtTitulo.isVisible = false
         binding.btnSincronizar.isVisible = false
         binding.volver.isVisible = false
         binding.listadofichados.isVisible = false
+        binding.imageView2.isVisible = true
+        binding.txtderechos.isVisible = true
         binding.gifcarga.isVisible = true
         binding.txtsincronizar.isVisible = true
-
-
-
-
     }
 
+    fun  pantallaInicio(){
+        binding.txtTitulo.isVisible = true
+        binding.btnSincronizar.isVisible = true
+        binding.volver.isVisible = true
+        binding.listadofichados.isVisible = true
+        binding.imageView2.isVisible = false
+        binding.txtderechos.isVisible = false
+        binding.gifcarga.isVisible = false
+        binding.txtsincronizar.isVisible = false
+        cargalistview()
+    }
 
 
     fun sincronizar(view: View) {
 
-        //Oculto los elementos de la vista y muestro un gif de carga
-
         pantallaEspera()
-
 
         //Busco los registros en estado no sincronizado
         val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
@@ -105,12 +111,14 @@ class Sincronizar : AppCompatActivity() {
 
             do {
 
-                var id: String = fila.getString(0)
+                var id : String = fila.getString(0)
+                var dni: String = fila.getString(1)
+                var nombre: String = fila.getString(2)
+                var fechahora: String = fila.getString(3)
+                var dimension: String = fila.getString(4)
+                var ciclo: String = fila.getString(6)
 
-                Toast.makeText(this, id, Toast.LENGTH_SHORT)
-                    .show()
-
-                //insertaservidor(id)
+                insertaservidor(id,dni,nombre,fechahora,dimension,ciclo)
 
             } while (fila.moveToNext())
 
@@ -121,12 +129,14 @@ class Sincronizar : AppCompatActivity() {
 
         }
 
+        pantallaInicio()
+
     }
 
+    fun insertaservidor(Id: String,dni : String, nombre : String, fechahora : String, dimension : String, ciclo : String){
 
-    fun insertaservidor(Id : String){
-
-        val url = "http://ws.grupocbs.com.ar/api/Fichado/ActualizaFichado"
+        //Me conecto al servidor para validar la persona
+        val url = "http://ws.grupocbs.com.ar/api/Fichado/AltaFichado"
 
         val queue = Volley.newRequestQueue(this)
 
@@ -142,8 +152,11 @@ class Sincronizar : AppCompatActivity() {
 
                     if (userData)
                     {
-                        Toast.makeText(this, "REGISTRO ACTUALIZADO", Toast.LENGTH_SHORT)
+                        Toast.makeText(this, "OPERACIÓN CORRECTA", Toast.LENGTH_SHORT)
                             .show()
+
+                        //Si se inserto en el servidor se debe poder actualizar el registro
+                        actualizaDatoLocal(Id)
 
                     }
                     else
@@ -168,7 +181,11 @@ class Sincronizar : AppCompatActivity() {
             }) {
             override fun getParams(): Map<String, String> {
                 val params: MutableMap<String, String> = HashMap()
-                params["id"] = Id
+                params["dni"] = dni
+                params["nombre"] = nombre
+                params["dimension"] = dimension
+                params["fechaHora"] = fechahora
+                params["ciclo"] = ciclo
                 return params
             }
         }
@@ -177,10 +194,21 @@ class Sincronizar : AppCompatActivity() {
     }
 
 
+    fun actualizaDatoLocal(Id : String){
+
+        //Update al registro
+        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val bd = admin.writableDatabase
+        val registro = ContentValues()
+        registro.put("sincronizado", "si")
+        val cant = bd.update("fichado", registro, "Id=${Id}", null)
+        bd.close()
+
+    }
+
     fun volver(view: View) {
         val inicio = Intent(this, Fichado()::class.java)
         startActivity(inicio)
     }
-
 
 }
