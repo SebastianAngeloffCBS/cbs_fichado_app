@@ -61,6 +61,10 @@ class Fichado : AppCompatActivity() {
 
         calendarView.setMaxDate(selectedDate)
 
+
+
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

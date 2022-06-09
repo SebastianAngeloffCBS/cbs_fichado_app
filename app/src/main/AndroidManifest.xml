@@ -18,18 +18,23 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".Sincronizar"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ListadoFichados"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ListadoPersonal"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".CargaPersona"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ValidacionPersona"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
@@ -44,6 +49,7 @@
             tools:replace="screenOrientation" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -6,11 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -38,6 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         var progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.isVisible = false
+
+        var btnOcultar =  findViewById<ImageButton>(R.id.btn_ocultar_pass)
+        btnOcultar.isVisible = false
+
 
         val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
         val bd = admin.writableDatabase
@@ -172,24 +174,35 @@ class MainActivity : AppCompatActivity() {
         bd.close()
     }
 
+    fun verpass(view: View) {
 
-    //Recorrer el json de a 1 dato
-    // val respObj = JSONObject(response)
-    // var idusuario = respObj.getString("idusuario")
-    // var usuario = respObj.getString("usuario")
-    // var password = respObj.getString("password")
-    // var perfil = respObj.getString("perfil")
+        var txtcontra = findViewById<EditText>(R.id.txtPass)
+        txtcontra.setInputType(145)
 
-    //Envio por Get
-    //        val textView = findViewById<TextView>(R.id.txtderechos)
-    //        val queue = Volley.newRequestQueue(this)
-    //        val url = "http://www.google.com"
-    //        val stringRequest = StringRequest(
-    //        Request.Method.GET,
-    //        url,
-    //        Response.Listener<String> { response -> textView.text = "Response is: ${response.substring(0, 500)}" },
-    //        Response.ErrorListener { textView.text = "That didn't work!" })
-    //        queue.add(stringRequest)
-    //        val queue = Volley.newRequestQueue(this)
+        var btnVer =  findViewById<ImageButton>(R.id.btn_ver_pass)
+        btnVer.isVisible = false
+
+
+        var btnOcultar =  findViewById<ImageButton>(R.id.btn_ocultar_pass)
+        btnOcultar.isVisible = true
+
+
+    }
+
+
+    fun ocultarpass(view: View) {
+
+        var txtcontra = findViewById<EditText>(R.id.txtPass)
+        txtcontra.setInputType(129)
+
+        var btnVer =  findViewById<ImageButton>(R.id.btn_ver_pass)
+        btnVer.isVisible = true
+
+
+        var btnOcultar =  findViewById<ImageButton>(R.id.btn_ocultar_pass)
+        btnOcultar.isVisible = false
+
+    }
+
 
 }

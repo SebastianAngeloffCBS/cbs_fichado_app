@@ -16,31 +16,17 @@
         tools:layout_editor_absoluteY="234dp">
 
 
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:fontFamily="sans-serif-black"
-                android:text="APP DE FICHADO"
-                android:textAlignment="center"
-                android:textSize="25dp" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="30dp"
-                app:srcCompat="@mipmap/calendario" />
-
-
-        </LinearLayout>
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-black"
+            android:text="APP DE FICHADO"
+            android:textColor="#EF3742"
+            android:background="@color/black"
+            android:textAlignment="center"
+            android:textSize="27dp" />
 
 
 
@@ -50,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="214dp"
             android:layout_marginTop="40dp"
-            app:srcCompat="@mipmap/logo2" />
+            app:srcCompat="@mipmap/calendario" />
 
         <TextView
             android:id="@+id/lblUser"
@@ -94,19 +80,49 @@
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/txtPass"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:hint="Ingrese la contraseña"
-            android:inputType="text|textWebPassword"
-            android:maxLength="27"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/txtPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:hint="Ingrese la contraseña"
+                android:inputType="textWebPassword"
+                android:maxLength="27"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+
+            <ImageButton
+                android:id="@+id/btn_ver_pass"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginRight="10dp"
+                android:onClick="verpass"
+                app:srcCompat="@mipmap/ojoabierto" />
+
+            <ImageButton
+                android:id="@+id/btn_ocultar_pass"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginRight="10dp"
+                android:onClick="ocultarpass"
+                app:srcCompat="@mipmap/ojooculto" />
+
+
+
+
+        </LinearLayout>
+
+
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -118,21 +134,29 @@
         <Button
             android:id="@+id/btn_conectar"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="10dp"
-            android:shadowColor="@android:color/holo_red_light"
             android:text="CONECTAR CON SERVIDOR"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="#EF3742"
             android:textSize="20dp"
             android:onClick="conectar" />
+
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@mipmap/logo2" />
+
 
         <TextView
             android:id="@+id/txtderechos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-black"
             android:text="DERECHOS RESERVADOS"
             android:textAlignment="center"

@@ -1,11 +1,13 @@
 package com.cbs.cbs_fichado_app
 
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +37,6 @@ class ValidacionPersona : AppCompatActivity() {
         dimension = bundle?.getString("dimension").toString()
     }
 
-
     fun ingreso(view: View) {
         fichar("ingreso")
     }
@@ -51,6 +52,7 @@ class ValidacionPersona : AppCompatActivity() {
 
 
         // 2 Obtengo la persona
+        //Si no existe le muestro un mensaje que tiene que cargar el dni
         val admin1 = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
         val bd1 = admin1.writableDatabase
         var queryApp : String = "select * from persona where dni='" + documento + "'"
@@ -61,33 +63,41 @@ class ValidacionPersona : AppCompatActivity() {
         }
         bd1.close()
 
-
-        // 3 Obtengo la fecha y la hora
-        val myTimeZone = TimeZone.getTimeZone("America/Argentina/Buenos_Aires")
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
-        simpleDateFormat.timeZone = myTimeZone
-        val currentdate = simpleDateFormat.format(Date())
+        if (nombre == ""){
 
 
-        //3 Guardo el fichado en la base local
-        insertaDatoLocal(nombre,documento,currentdate,ciclo)
-
-        //Si hay conexión a internet sincronizo
-        if(isConnected(this)){
-            //Conectado.
-            insertaServidor(nombre,documento,currentdate,ciclo)
+            showMessageBox("PERSONA NO REGISTRADA. DEBE REGISTRAR LA MISMA EN EL APP.")
 
 
+        }else{
+
+            // 3 Obtengo la fecha y la hora
+            val myTimeZone = TimeZone.getTimeZone("America/Argentina/Buenos_Aires")
+            val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
+            simpleDateFormat.timeZone = myTimeZone
+            val currentdate = simpleDateFormat.format(Date())
+
+
+            //3 Guardo el fichado en la base local
+            insertaDatoLocal(nombre,documento,currentdate,ciclo)
+
+            //Si hay conexión a internet sincronizo
+            if(isConnected(this)){
+                //Conectado.
+                insertaServidor(nombre,documento,currentdate,ciclo)
+
+
+            }
+
+            //Redirijo al inicio
+            val nuevo = Intent(this, MainActivity()::class.java)
+            startActivity(nuevo)
         }
 
-        //Redirijo al inicio
-        val nuevo = Intent(this, MainActivity()::class.java)
-        startActivity(nuevo)
+
+
+
     }
-
-
-
-
 
     fun insertaServidor(nombre:String,dni:String,fechahora:String,ciclo:String){
 
@@ -166,8 +176,6 @@ class ValidacionPersona : AppCompatActivity() {
 
     }
 
-
-
     fun actualizaDatoLocal(){
 
         //Obtengo el id del utlimo registro
@@ -192,8 +200,6 @@ class ValidacionPersona : AppCompatActivity() {
 
     }
 
-
-
     fun isConnected(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -215,6 +221,21 @@ class ValidacionPersona : AppCompatActivity() {
             }
         }
         return false
+    }
+
+
+    fun showMessageBox(text: String){
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("ATENCIÓN")
+        builder.setMessage(text)
+        builder.setPositiveButton("Continuar") { dialog, which ->
+            val nuevo = Intent(this, ListadoPersonal()::class.java)
+            startActivity(nuevo)
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
     }
 
 }
