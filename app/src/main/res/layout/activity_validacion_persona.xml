@@ -50,32 +50,49 @@
                 android:inputType="number" />
 
             <Button
-                android:id="@+id/btn_marcar_ingreso"
+                android:id="@+id/btn_marcar"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="10dp"
                 android:shadowColor="@android:color/holo_red_light"
-                android:text="MARCAR INGRESO"
+                android:text="FICHAR"
                 android:drawableRight="@mipmap/ingreso"
                 android:textColor="#EF3742"
                 android:textSize="20dp"
-                android:onClick="ingreso"/>
+                android:onClick="fichar"/>
 
-            <Button
-                android:id="@+id/btn_marcar_salida"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="10dp"
-                android:shadowColor="@android:color/holo_red_light"
-                android:text="MARCAR SALIDA"
-                android:onClick="salir"
-                android:drawableRight="@mipmap/ingreso"
-                android:textColor="#EF3742"
-                android:textSize="20dp" />
+
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_marcar_ingreso"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="75dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:shadowColor="@android:color/holo_red_light"-->
+<!--                android:text="MARCAR INGRESO"-->
+<!--                android:drawableRight="@mipmap/ingreso"-->
+<!--                android:textColor="#EF3742"-->
+<!--                android:textSize="20dp"-->
+<!--                android:onClick="ingreso"/>-->
+
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_marcar_salida"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="75dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:shadowColor="@android:color/holo_red_light"-->
+<!--                android:text="MARCAR SALIDA"-->
+<!--                android:onClick="salir"-->
+<!--                android:drawableRight="@mipmap/ingreso"-->
+<!--                android:textColor="#EF3742"-->
+<!--                android:textSize="20dp" />-->
 
 
 

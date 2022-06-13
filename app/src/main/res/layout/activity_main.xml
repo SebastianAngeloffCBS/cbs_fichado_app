@@ -7,165 +7,173 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/conetendor"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="234dp">
-
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="sans-serif-black"
-            android:text="APP DE FICHADO"
-            android:textColor="#EF3742"
-            android:background="@color/black"
-            android:textAlignment="center"
-            android:textSize="27dp" />
-
-
-
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="214dp"
-            android:layout_marginTop="40dp"
-            app:srcCompat="@mipmap/calendario" />
-
-        <TextView
-            android:id="@+id/lblUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="sans-serif-black"
-            android:text="USUARIO:"
-            android:textAllCaps="true"
-            android:textAlignment="textStart"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/txtUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:hint="Ingrese el usuario"
-            android:inputType="text"
-            android:maxLength="40"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:id="@+id/lblpass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="sans-serif-black"
-            android:text="CONTRASEÑA:"
-            android:textAlignment="textStart"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/conetendor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="234dp">
 
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="sans-serif-black"
+                android:text="APP DE FICHADO"
+                android:textColor="#EF3742"
+                android:background="@color/black"
+                android:textAlignment="center"
+                android:textSize="27dp" />
+
+
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="214dp"
+                android:layout_marginTop="40dp"
+                app:srcCompat="@mipmap/calendario" />
+
+            <TextView
+                android:id="@+id/lblUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="USUARIO:"
+                android:textAllCaps="true"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/txtPass"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtUser"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:ems="10"
-                android:hint="Ingrese la contraseña"
-                android:inputType="textWebPassword"
-                android:maxLength="27"
+                android:hint="Ingrese el usuario"
+                android:inputType="text"
+                android:maxLength="40"
                 android:textColor="@color/design_default_color_on_secondary"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
 
-            <ImageButton
-                android:id="@+id/btn_ver_pass"
+            <TextView
+                android:id="@+id/lblpass"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
-                android:onClick="verpass"
-                app:srcCompat="@mipmap/ojoabierto" />
+                android:fontFamily="sans-serif-black"
+                android:text="CONTRASEÑA:"
+                android:textAlignment="textStart"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
 
-            <ImageButton
-                android:id="@+id/btn_ocultar_pass"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginRight="10dp"
-                android:onClick="ocultarpass"
-                app:srcCompat="@mipmap/ojooculto" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+
+                <EditText
+                    android:id="@+id/txtPass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:hint="Ingrese la contraseña"
+                    android:inputType="textWebPassword"
+                    android:maxLength="27"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+
+                <ImageButton
+                    android:id="@+id/btn_ver_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="verpass"
+                    app:srcCompat="@mipmap/ojoabierto" />
+
+                <ImageButton
+                    android:id="@+id/btn_ocultar_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="ocultarpass"
+                    app:srcCompat="@mipmap/ojooculto" />
+
+
+
+
+            </LinearLayout>
+
+
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_conectar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:text="CONECTAR CON SERVIDOR"
+                android:textColor="#EF3742"
+                android:textSize="20dp"
+                android:onClick="conectar" />
+
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginTop="50dp"
+                app:srcCompat="@mipmap/logo2" />
+
+
+            <TextView
+                android:id="@+id/txtderechos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-black"
+                android:text="DERECHOS RESERVADOS"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12dp" />
 
 
 
         </LinearLayout>
 
+    </ScrollView>
 
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btn_conectar"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="10dp"
-            android:text="CONECTAR CON SERVIDOR"
-            android:textColor="#EF3742"
-            android:textSize="20dp"
-            android:onClick="conectar" />
-
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginTop="50dp"
-            app:srcCompat="@mipmap/logo2" />
-
-
-        <TextView
-            android:id="@+id/txtderechos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-black"
-            android:text="DERECHOS RESERVADOS"
-            android:textAlignment="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12dp" />
-
-
-
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

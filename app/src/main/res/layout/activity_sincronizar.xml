@@ -45,17 +45,14 @@
                 android:textColor="#EF3742"
                 android:textSize="18dp" />
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gifcarga"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:src="@mipmap/progress"
-                android:layout_marginTop="40dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingClass">
 
-            </pl.droidsonroids.gif.GifImageView>
+            <ProgressBar
+                android:id="@+id/gifcarga"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
 
 
 
@@ -71,6 +68,19 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="26dp" />
+
+            <TextView
+                android:id="@+id/lbltitulo1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="sans-serif-black"
+                android:text="ES NECESARIO INTERNET PARA SINCRONIZAR"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/btn_sincronizar"

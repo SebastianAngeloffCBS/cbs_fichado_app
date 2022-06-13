@@ -37,18 +37,18 @@ class ValidacionPersona : AppCompatActivity() {
         dimension = bundle?.getString("dimension").toString()
     }
 
-    fun ingreso(view: View) {
-        fichar("ingreso")
-    }
+//    fun ingreso(view: View) {
+//        fichar("ingreso")
+//    }
+//
+//    fun salir(view: View) {
+//        fichar("salida")
+//    }
 
-    fun salir(view: View) {
-        fichar("salida")
-    }
-
-    fun fichar(ciclo :String){
+    fun fichar(ciclo :String, documento:String){
 
         // 1 Obtengo el DNI
-        var documento = binding.txtdni.text.toString()
+//        var documento = binding.txtdni.text.toString()
 
 
         // 2 Obtengo la persona
@@ -207,17 +207,18 @@ class ValidacionPersona : AppCompatActivity() {
             val capabilities =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capabilities != null) {
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-
-                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_CELLULAR", Toast.LENGTH_LONG).show()
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_WIFI", Toast.LENGTH_LONG).show()
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_ETHERNET", Toast.LENGTH_LONG).show()
-                    return true
-                }
+                return true
+//                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+//
+//                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_CELLULAR", Toast.LENGTH_LONG).show()
+//                    return true
+//                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+//                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_WIFI", Toast.LENGTH_LONG).show()
+//                    return true
+//                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+//                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_ETHERNET", Toast.LENGTH_LONG).show()
+//                    return true
+//                }
             }
         }
         return false
@@ -235,6 +236,37 @@ class ValidacionPersona : AppCompatActivity() {
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
+
+    }
+
+    fun fichar(view: View) {
+
+        //Realizo validaciones
+        var documento = binding.txtdni.text.toString()
+
+        if (documento.length < 7) {
+            Toast.makeText(applicationContext,"Faltan números", Toast.LENGTH_LONG).show()
+        }else{
+            //Dependiendo del dni que ingreso, verifico, cual fue el último ciclo
+            val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+            val bd = admin.writableDatabase
+            var queryApp : String = "select * from fichado where dni='" + documento + "'" + "order by id desc limit 1"
+            val fila = bd.rawQuery(queryApp, null)
+            if (fila.moveToFirst()){
+                var ciclo = fila.getString(6)
+                if (ciclo == "ingreso"){
+                    fichar("salida",documento)
+                }else{
+                    fichar("ingreso",documento)
+                }
+            }else{
+                fichar("ingreso",documento)
+            }
+
+
+        }
+
+
 
     }
 

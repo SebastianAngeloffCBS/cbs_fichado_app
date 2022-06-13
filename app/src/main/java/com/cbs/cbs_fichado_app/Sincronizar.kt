@@ -92,7 +92,10 @@ class Sincronizar : AppCompatActivity() {
         binding.txtderechos.isVisible = false
         binding.gifcarga.isVisible = false
         binding.txtsincronizar.isVisible = false
-        cargalistview()
+
+        val fichado = Intent(this, Fichado()::class.java)
+        startActivity(fichado)
+
     }
 
 
