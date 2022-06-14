@@ -1,22 +1,29 @@
 package com.cbs.cbs_fichado_app
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.cbs.cbs_fichado_app.databinding.ActivityValidacionPersonaBinding
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.google.android.gms.location.*
 import org.json.JSONException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,6 +33,16 @@ class ValidacionPersona : AppCompatActivity() {
     private lateinit var binding: ActivityValidacionPersonaBinding
 
     private  var dimension : String = ""
+    private  var latitud : String = ""
+    private  var longitud : String = ""
+
+    private val CODIGO_PERMISOS_UBICACION_SEGUNDO_PLANO = 2106
+    private var haConcedidoPermisos = false
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private lateinit var locationCallback: LocationCallback
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,15 +52,9 @@ class ValidacionPersona : AppCompatActivity() {
 
         val bundle = intent.extras
         dimension = bundle?.getString("dimension").toString()
-    }
 
-//    fun ingreso(view: View) {
-//        fichar("ingreso")
-//    }
-//
-//    fun salir(view: View) {
-//        fichar("salida")
-//    }
+        verificarPermisos()
+    }
 
     fun fichar(ciclo :String, documento:String){
 
@@ -152,6 +163,8 @@ class ValidacionPersona : AppCompatActivity() {
                 params["dimension"] = dimension
                 params["fechaHora"] = fechahora
                 params["ciclo"] = ciclo
+                params["latitud"] = latitud
+                params["longitud"] = longitud
                 return params
             }
         }
@@ -171,6 +184,8 @@ class ValidacionPersona : AppCompatActivity() {
         registro.put("fechahora", fechahora)
         registro.put("ciclo",ciclo)
         registro.put("sincronizado","no")
+        registro.put("latitud",latitud)
+        registro.put("longitud",longitud)
         bd.insert("fichado", null, registro)
         bd.close()
 
@@ -208,22 +223,10 @@ class ValidacionPersona : AppCompatActivity() {
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capabilities != null) {
                 return true
-//                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-//
-//                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_CELLULAR", Toast.LENGTH_LONG).show()
-//                    return true
-//                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-//                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_WIFI", Toast.LENGTH_LONG).show()
-//                    return true
-//                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-//                    Toast.makeText(applicationContext,"NetworkCapabilities.TRANSPORT_ETHERNET", Toast.LENGTH_LONG).show()
-//                    return true
-//                }
             }
         }
         return false
     }
-
 
     fun showMessageBox(text: String){
 
@@ -269,5 +272,124 @@ class ValidacionPersona : AppCompatActivity() {
 
 
     }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------
+
+
+    fun imprimirUbicacion(ubicacion: Location) {
+        latitud = ubicacion.latitude.toString()
+        longitud = ubicacion.longitude.toString()
+    }
+
+
+    fun onPermisosConcedidos() {
+        // Hasta aquí sabemos que los permisos ya están concedidos
+
+        if (longitud == "" && latitud == ""){
+
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            try {
+                fusedLocationClient.lastLocation.addOnSuccessListener {
+                    if (it != null) {
+                        imprimirUbicacion(it)
+                    } else {
+                        Toast.makeText(applicationContext,"No se pudo obtener la ubicación", Toast.LENGTH_LONG).show()
+                    }
+                }
+                val locationRequest = LocationRequest.create().apply {
+                    interval = 10000
+                    fastestInterval = 5000
+                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                }
+                locationCallback = object : LocationCallback() {
+
+                    override fun onLocationResult(p0: LocationResult) {
+                        p0 ?: return
+                        Toast.makeText(applicationContext,"Se recibió una actualización", Toast.LENGTH_LONG).show()
+                        for (location in p0.locations) {
+                            imprimirUbicacion(location)
+                        }
+                    }
+
+                }
+                fusedLocationClient.requestLocationUpdates(
+                    locationRequest,
+                    locationCallback,
+                    Looper.getMainLooper()
+                )
+            } catch (e: SecurityException) {
+                Toast.makeText(applicationContext,"Tal vez no solicitaste permiso antes", Toast.LENGTH_LONG).show()
+
+            }
+
+        }
+
+
+
+    }
+
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CODIGO_PERMISOS_UBICACION_SEGUNDO_PLANO) {
+            val todosLosPermisosConcedidos =
+                grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+            if (grantResults.isNotEmpty() && todosLosPermisosConcedidos) {
+                haConcedidoPermisos = true
+                onPermisosConcedidos()
+                Toast.makeText(applicationContext,"El usuario concedió todos los permisos", Toast.LENGTH_LONG).show()
+
+            } else {
+                Toast.makeText(applicationContext,"Uno o más permisos fueron denegados", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun verificarPermisos() {
+        val permisos = arrayListOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+        )
+        // Segundo plano para Android Q
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            permisos.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+        }
+        val permisosComoArray = permisos.toTypedArray()
+        if (tienePermisos(permisosComoArray)) {
+            haConcedidoPermisos = true
+            onPermisosConcedidos()
+            Toast.makeText(applicationContext,"Los permisos ya fueron concedidos", Toast.LENGTH_LONG).show()
+        } else {
+            solicitarPermisos(permisosComoArray)
+        }
+    }
+
+
+    private fun solicitarPermisos(permisos: Array<String>) {
+        Toast.makeText(applicationContext,"Solicitando permisos...", Toast.LENGTH_LONG).show()
+        requestPermissions(
+            permisos,
+            CODIGO_PERMISOS_UBICACION_SEGUNDO_PLANO
+        )
+    }
+
+    private fun tienePermisos(permisos: Array<String>): Boolean {
+        return permisos.all {
+            return ContextCompat.checkSelfPermission(
+                this,
+                it
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+
+
+
+
 
 }
