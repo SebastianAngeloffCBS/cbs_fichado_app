@@ -305,7 +305,6 @@ class ValidacionPersona : AppCompatActivity() {
 
                     override fun onLocationResult(p0: LocationResult) {
                         p0 ?: return
-                        Toast.makeText(applicationContext,"Se recibió una actualización", Toast.LENGTH_LONG).show()
                         for (location in p0.locations) {
                             imprimirUbicacion(location)
                         }

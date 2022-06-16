@@ -120,8 +120,10 @@ class Sincronizar : AppCompatActivity() {
                 var fechahora: String = fila.getString(3)
                 var dimension: String = fila.getString(4)
                 var ciclo: String = fila.getString(6)
+                var latitud: String = fila.getString(7)
+                var longitud: String = fila.getString(8)
 
-                insertaservidor(id,dni,nombre,fechahora,dimension,ciclo)
+                insertaservidor(id,dni,nombre,fechahora,dimension,ciclo,latitud,longitud)
 
             } while (fila.moveToNext())
 
@@ -136,7 +138,7 @@ class Sincronizar : AppCompatActivity() {
 
     }
 
-    fun insertaservidor(Id: String,dni : String, nombre : String, fechahora : String, dimension : String, ciclo : String){
+    fun insertaservidor(Id: String,dni : String, nombre : String, fechahora : String, dimension : String, ciclo : String, latitud: String,longitud: String){
 
         //Me conecto al servidor para validar la persona
         val url = "http://ws.grupocbs.com.ar/api/Fichado/AltaFichado"
@@ -189,6 +191,8 @@ class Sincronizar : AppCompatActivity() {
                 params["dimension"] = dimension
                 params["fechaHora"] = fechahora
                 params["ciclo"] = ciclo
+                params["latitud"] = latitud
+                params["longitud"] = longitud
                 return params
             }
         }

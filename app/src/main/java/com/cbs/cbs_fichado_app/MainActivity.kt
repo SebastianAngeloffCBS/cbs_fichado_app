@@ -26,8 +26,6 @@ import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -65,7 +63,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
     fun conectar(view: View) {
 
@@ -189,7 +186,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     fun ocultarpass(view: View) {
 
         var txtcontra = findViewById<EditText>(R.id.txtPass)
@@ -203,6 +199,5 @@ class MainActivity : AppCompatActivity() {
         btnOcultar.isVisible = false
 
     }
-
 
 }
