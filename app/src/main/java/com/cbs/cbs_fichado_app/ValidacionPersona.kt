@@ -59,12 +59,11 @@ class ValidacionPersona : AppCompatActivity() {
     fun fichar(ciclo :String, documento:String){
 
         // 1 Obtengo el DNI
-//        var documento = binding.txtdni.text.toString()
-
+        // var documento = binding.txtdni.text.toString()
 
         // 2 Obtengo la persona
         //Si no existe le muestro un mensaje que tiene que cargar el dni
-        val admin1 = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin1 = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd1 = admin1.writableDatabase
         var queryApp : String = "select * from persona where dni='" + documento + "'"
         val fila1 = bd1.rawQuery(queryApp, null)
@@ -94,7 +93,6 @@ class ValidacionPersona : AppCompatActivity() {
 
             //Si hay conexión a internet sincronizo
             if(isConnected(this)){
-                //Conectado.
                 insertaServidor(nombre,documento,currentdate,ciclo)
 
 
@@ -106,14 +104,23 @@ class ValidacionPersona : AppCompatActivity() {
         }
 
 
-
-
     }
 
     fun insertaServidor(nombre:String,dni:String,fechahora:String,ciclo:String){
 
+
+        //SI esta en la red de cbs
+        //PONGO LA IP CON EL PUERTO
+
+
+
+
+        // si no solo el dominio
+        var dominio : String = "192.168.1.141:2631"
+
+
         //Me conecto al servidor para validar la persona
-        val url = "http://ws.grupocbs.com.ar/api/Fichado/AltaFichado"
+        val url = "http://"+ dominio +"/api/Fichado/AltaFichado"
 
         val queue = Volley.newRequestQueue(this)
 
@@ -134,7 +141,6 @@ class ValidacionPersona : AppCompatActivity() {
 
                         //Actualizo local
                         actualizaDatoLocal()
-
                     }
                     else
                     {
@@ -175,17 +181,18 @@ class ValidacionPersona : AppCompatActivity() {
 
     fun insertaDatoLocal(nombre:String,dni:String,fechahora:String,ciclo:String){
 
-        val admin = AdminSQLiteOpenHelper(this,"dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this,"fichadodb", null, 1)
         val bd = admin.writableDatabase
         val registro = ContentValues()
-        registro.put("dimension", dimension)
-        registro.put("nombre", nombre)
         registro.put("dni", dni)
+        registro.put("nombre", nombre)
         registro.put("fechahora", fechahora)
-        registro.put("ciclo",ciclo)
+        registro.put("dimension", dimension)
         registro.put("sincronizado","no")
-        registro.put("latitud",latitud)
-        registro.put("longitud",longitud)
+        registro.put("ciclo",ciclo)
+        registro.put("latitud","1")
+        registro.put("longitud","2")
+
         bd.insert("fichado", null, registro)
         bd.close()
 
@@ -194,7 +201,7 @@ class ValidacionPersona : AppCompatActivity() {
     fun actualizaDatoLocal(){
 
         //Obtengo el id del utlimo registro
-        val admin1 = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin1 = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd1 = admin1.writableDatabase
         var queryApp : String = "select * from fichado order by id desc LIMIT 1"
         val fila1 = bd1.rawQuery(queryApp, null)
@@ -206,7 +213,7 @@ class ValidacionPersona : AppCompatActivity() {
         bd1.close()
 
         //Update al registro
-        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
         val registro = ContentValues()
         registro.put("sincronizado", "si")
@@ -251,7 +258,7 @@ class ValidacionPersona : AppCompatActivity() {
             Toast.makeText(applicationContext,"Faltan números", Toast.LENGTH_LONG).show()
         }else{
             //Dependiendo del dni que ingreso, verifico, cual fue el último ciclo
-            val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+            val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
             val bd = admin.writableDatabase
             var queryApp : String = "select * from fichado where dni='" + documento + "'" + "order by id desc limit 1"
             val fila = bd.rawQuery(queryApp, null)
@@ -283,7 +290,6 @@ class ValidacionPersona : AppCompatActivity() {
 
 
     fun onPermisosConcedidos() {
-        // Hasta aquí sabemos que los permisos ya están concedidos
 
         if (longitud == "" && latitud == ""){
 
@@ -329,11 +335,7 @@ class ValidacionPersona : AppCompatActivity() {
 
 
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CODIGO_PERMISOS_UBICACION_SEGUNDO_PLANO) {
             val todosLosPermisosConcedidos =
@@ -355,9 +357,13 @@ class ValidacionPersona : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION,
         )
         // Segundo plano para Android Q
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             permisos.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+        }else{
+            //Pantalla de permisos explicitos
+
         }
+
         val permisosComoArray = permisos.toTypedArray()
         if (tienePermisos(permisosComoArray)) {
             haConcedidoPermisos = true

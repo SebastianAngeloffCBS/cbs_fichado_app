@@ -38,7 +38,7 @@ class Sincronizar : AppCompatActivity() {
 
     fun  cargalistview() {
 
-        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
         val fila = bd.rawQuery("select * from fichado where sincronizado = 'no' ", null)
 
@@ -104,7 +104,7 @@ class Sincronizar : AppCompatActivity() {
         pantallaEspera()
 
         //Busco los registros en estado no sincronizado
-        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
         val fila = bd.rawQuery("select * from fichado where sincronizado = 'no' ", null)
 
@@ -204,7 +204,7 @@ class Sincronizar : AppCompatActivity() {
     fun actualizaDatoLocal(Id : String){
 
         //Update al registro
-        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
         val registro = ContentValues()
         registro.put("sincronizado", "si")

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         btnOcultar.isVisible = false
 
 
-        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
         val fila = bd.rawQuery("select * from usuario", null)
         if (fila.moveToFirst()) {
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
 
     fun guardarDatos(usuario : Usuario) {
 
-        val admin = AdminSQLiteOpenHelper(this,"dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this,"fichadodb", null, 1)
         val bd = admin.writableDatabase
         val registro = ContentValues()
         registro.put("idusuario", usuario.idusuario)
@@ -182,7 +182,6 @@ class MainActivity : AppCompatActivity() {
 
         var btnOcultar =  findViewById<ImageButton>(R.id.btn_ocultar_pass)
         btnOcultar.isVisible = true
-
 
     }
 

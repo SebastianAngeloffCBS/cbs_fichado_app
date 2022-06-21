@@ -112,7 +112,7 @@ class Fichado : AppCompatActivity() {
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
         builder.setPositiveButton("SI"){dialogInterface, which ->
-            val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+            val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
             val bd = admin.writableDatabase
             val base1 = bd.delete("usuario", null, null)
             val base2 = bd.delete("persona", null, null)

@@ -30,7 +30,7 @@ class ListadoFichados : AppCompatActivity() {
 
     fun  cargalistview() {
 
-        val admin = AdminSQLiteOpenHelper(this, "dbfichado", null, 1)
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
         val fila = bd.rawQuery("select * from fichado", null)
 
