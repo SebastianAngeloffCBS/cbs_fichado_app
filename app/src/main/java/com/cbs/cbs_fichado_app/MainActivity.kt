@@ -113,6 +113,8 @@ class MainActivity : AppCompatActivity() {
                     {
                         guardarDatos(userData)
 
+                        sincronizaNomina()
+
                         val fichado = Intent(this, Fichado::class.java)
 
                         fichado.putExtra("UsuarioIntra", userData.usuario)
@@ -157,6 +159,64 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun sincronizaNomina() {
+
+        val url = "http://ws.grupocbs.com.ar/api/Telefonos/ObtenerNomina"
+
+        val queue = Volley.newRequestQueue(this@MainActivity)
+
+        val request: StringRequest = object : StringRequest(
+            Method.POST,
+            url,
+            Response.Listener { response ->
+                try
+                {
+                    val mapper = jacksonObjectMapper()
+
+                    var personalData: ArrayList<Personal> = ArrayList()
+                    personalData  = mapper.readValue(response)
+
+                    if (personalData.count() > 0)
+                    {
+                        //Guardo en local los datos
+//                        do {
+//
+//
+//
+//                        } while (personalData.moveToNext())
+
+                    }
+                    else
+                    {
+                        var progressBar = findViewById<ProgressBar>(R.id.progressBar)
+                        progressBar.isVisible = false
+                        var boton = findViewById<Button>(R.id.btn_conectar)
+                        boton.isVisible = true
+
+                        Toast.makeText(this, "FALLA EN SINCRONIZACIÓN NOMINA", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
+                catch (e: JSONException)
+                {
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener { error -> // method to handle errors.
+                Toast.makeText(
+                    this@MainActivity,
+                    "Fail to get response = $error",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }) {
+        }
+        queue.add(request)
+
+    }
+
+
 
     fun guardarDatos(usuario : Usuario) {
 
