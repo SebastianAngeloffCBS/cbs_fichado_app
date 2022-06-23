@@ -1,30 +1,25 @@
 package com.cbs.cbs_fichado_app
 
-import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
+import android.content.res.Configuration
 import android.os.Bundle
-import android.text.InputType
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import kotlinx.coroutines.flow.count
 import org.json.JSONException
-import org.json.JSONObject
 import java.util.*
-import kotlin.collections.HashMap
+
 
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -37,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         var btnOcultar =  findViewById<ImageButton>(R.id.btn_ocultar_pass)
         btnOcultar.isVisible = false
+
+
 
 
         val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
@@ -179,12 +176,16 @@ class MainActivity : AppCompatActivity() {
 
                     if (personalData.count() > 0)
                     {
-                        //Guardo en local los datos
-//                        do {
-//
-//
-//
-//                        } while (personalData.moveToNext())
+
+                        for (item in personalData){
+                            val admin = AdminSQLiteOpenHelper(this,"fichadodb", null, 1)
+                            val bd = admin.writableDatabase
+                            val registro = ContentValues()
+                            registro.put("dni", item.dni)
+                            registro.put("nombre", item.nombreapellido)
+                            bd.insert("persona", null, registro)
+                            bd.close()
+                        }
 
                     }
                     else

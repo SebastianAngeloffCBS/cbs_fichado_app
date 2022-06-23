@@ -31,6 +31,8 @@ import java.util.*
 class ValidacionPersona : AppCompatActivity() {
 
     private lateinit var binding: ActivityValidacionPersonaBinding
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
 
     private  var dimension : String = ""
     private  var latitud : String = ""
@@ -38,10 +40,6 @@ class ValidacionPersona : AppCompatActivity() {
 
     private val CODIGO_PERMISOS_UBICACION_SEGUNDO_PLANO = 2106
     private var haConcedidoPermisos = false
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    private lateinit var locationCallback: LocationCallback
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,9 +73,7 @@ class ValidacionPersona : AppCompatActivity() {
 
         if (nombre == ""){
 
-
             showMessageBox("PERSONA NO REGISTRADA. DEBE REGISTRAR LA MISMA EN EL APP.")
-
 
         }else{
 
@@ -94,8 +90,6 @@ class ValidacionPersona : AppCompatActivity() {
             //Si hay conexión a internet sincronizo
             if(isConnected(this)){
                 insertaServidor(nombre,documento,currentdate,ciclo)
-
-
             }
 
             //Redirijo al inicio
@@ -108,15 +102,12 @@ class ValidacionPersona : AppCompatActivity() {
 
     fun insertaServidor(nombre:String,dni:String,fechahora:String,ciclo:String){
 
-
         //SI esta en la red de cbs
         //PONGO LA IP CON EL PUERTO
 
 
-
-
         // si no solo el dominio
-        var dominio : String = "192.168.1.141:2631"
+        var dominio : String = "ws.grupocbs.com.ar"
 
 
         //Me conecto al servidor para validar la persona
@@ -190,8 +181,8 @@ class ValidacionPersona : AppCompatActivity() {
         registro.put("dimension", dimension)
         registro.put("sincronizado","no")
         registro.put("ciclo",ciclo)
-        registro.put("latitud","1")
-        registro.put("longitud","2")
+        registro.put("latitud",latitud)
+        registro.put("longitud",longitud)
 
         bd.insert("fichado", null, registro)
         bd.close()
@@ -282,12 +273,10 @@ class ValidacionPersona : AppCompatActivity() {
 
     //-----------------------------------------------------------------------------------------------------------------------------------
 
-
     fun imprimirUbicacion(ubicacion: Location) {
         latitud = ubicacion.latitude.toString()
         longitud = ubicacion.longitude.toString()
     }
-
 
     fun onPermisosConcedidos() {
 
@@ -333,8 +322,6 @@ class ValidacionPersona : AppCompatActivity() {
 
     }
 
-
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CODIGO_PERMISOS_UBICACION_SEGUNDO_PLANO) {
@@ -356,12 +343,9 @@ class ValidacionPersona : AppCompatActivity() {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
         )
-        // Segundo plano para Android Q
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+        // Segundo plano para Android Q 10
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             permisos.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-        }else{
-            //Pantalla de permisos explicitos
-
         }
 
         val permisosComoArray = permisos.toTypedArray()
@@ -373,7 +357,6 @@ class ValidacionPersona : AppCompatActivity() {
             solicitarPermisos(permisosComoArray)
         }
     }
-
 
     private fun solicitarPermisos(permisos: Array<String>) {
         Toast.makeText(applicationContext,"Solicitando permisos...", Toast.LENGTH_LONG).show()
@@ -391,10 +374,5 @@ class ValidacionPersona : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED
         }
     }
-
-
-
-
-
 
 }

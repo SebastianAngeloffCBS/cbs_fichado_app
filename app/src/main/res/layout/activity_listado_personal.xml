@@ -60,8 +60,6 @@
                 android:textSize="14dp" />
 
 
-
-
             <Button
                 android:id="@+id/btn_buscar_persona"
                 android:layout_width="match_parent"
@@ -79,9 +77,8 @@
             <ListView
                 android:id="@+id/listadopersonal"
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="400dp" />
-
+                android:layout_height="490dp"
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
