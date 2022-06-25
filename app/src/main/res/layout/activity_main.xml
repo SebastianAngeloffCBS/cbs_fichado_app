@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <LinearLayout
             android:id="@+id/conetendor"
@@ -41,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="214dp"
                 android:layout_marginTop="40dp"
+                android:background="@android:color/white"
                 app:srcCompat="@mipmap/calendario" />
 
             <TextView
@@ -65,9 +67,10 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:hint="Ingrese el usuario"
+                android:textColorHint="@color/gris"
                 android:inputType="text"
                 android:maxLength="40"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:textColor="@color/black"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -99,9 +102,10 @@
                     android:layout_marginRight="10dp"
                     android:ems="10"
                     android:hint="Ingrese la contraseña"
+                    android:textColorHint="@color/gris"
                     android:inputType="textWebPassword"
                     android:maxLength="27"
-                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold" />
 

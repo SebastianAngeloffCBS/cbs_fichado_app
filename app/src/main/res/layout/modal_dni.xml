@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:src="@mipmap/iconodni"
+        android:src="@mipmap/mapa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
@@ -22,21 +22,26 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-black"
-        android:text="DNI:"
-        android:textAlignment="textStart"
+        android:text="DEBE DAR LOS PERMISOS DE UBICACIÓN"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/dni"
-        android:inputType="number"
+    <TextView
+        android:id="@+id/lbl4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"
-        android:hint="INGRESE SU DNI"/>
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif-black"
+        android:text="1: Presiona Permisos. Si otorgaste o rechazaste los permisos de una app, podrás verlos aquí."
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+
+
+
 </LinearLayout>
 

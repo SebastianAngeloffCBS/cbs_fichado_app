@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     fun sendPost(txtUser: String, txtPass: String) {
 
-        val url = "http://ws.grupocbs.com.ar/api/Telefonos/VerificaUsePass"
+        val url = "http://ws.grupocbs.com.ar/api/Fichado/VerificaUsePass"
 
         val queue = Volley.newRequestQueue(this@MainActivity)
 
@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity() {
 
     fun sincronizaNomina() {
 
-        val url = "http://ws.grupocbs.com.ar/api/Telefonos/ObtenerNomina"
+        val url = "http://ws.grupocbs.com.ar/api/Fichado/ObtenerNomina"
 
         val queue = Volley.newRequestQueue(this@MainActivity)
 

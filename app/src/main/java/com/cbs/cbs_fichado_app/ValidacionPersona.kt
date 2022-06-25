@@ -4,16 +4,20 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -102,16 +106,8 @@ class ValidacionPersona : AppCompatActivity() {
 
     fun insertaServidor(nombre:String,dni:String,fechahora:String,ciclo:String){
 
-        //SI esta en la red de cbs
-        //PONGO LA IP CON EL PUERTO
-
-
-        // si no solo el dominio
-        var dominio : String = "ws.grupocbs.com.ar"
-
-
         //Me conecto al servidor para validar la persona
-        val url = "http://"+ dominio +"/api/Fichado/AltaFichado"
+        val url = "http://ws.grupocbs.com.ar/api/Fichado/AltaFichado"
 
         val queue = Volley.newRequestQueue(this)
 
@@ -154,6 +150,7 @@ class ValidacionPersona : AppCompatActivity() {
                 ).show()
             }) {
             override fun getParams(): Map<String, String> {
+               var idUser =  buscarIdUsuario()
                 val params: MutableMap<String, String> = HashMap()
                 params["dni"] = dni
                 params["nombre"] = nombre
@@ -162,6 +159,7 @@ class ValidacionPersona : AppCompatActivity() {
                 params["ciclo"] = ciclo
                 params["latitud"] = latitud
                 params["longitud"] = longitud
+                params["iduser"] = idUser
                 return params
             }
         }
@@ -170,7 +168,25 @@ class ValidacionPersona : AppCompatActivity() {
 
     }
 
+    fun buscarIdUsuario() : String{
+
+        var iduser = ""
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
+        val bd = admin.writableDatabase
+        val fila = bd.rawQuery("select * from usuario", null)
+        if (fila.moveToFirst()) {
+            bd.close()
+
+            iduser = fila.getString(0)
+        }
+
+    return iduser
+
+    }
+
     fun insertaDatoLocal(nombre:String,dni:String,fechahora:String,ciclo:String){
+
+
 
         val admin = AdminSQLiteOpenHelper(this,"fichadodb", null, 1)
         val bd = admin.writableDatabase
@@ -278,6 +294,26 @@ class ValidacionPersona : AppCompatActivity() {
         longitud = ubicacion.longitude.toString()
     }
 
+    fun mostrarModal() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("PERMISOS UBICACIÓN")
+        val customLayout: View = layoutInflater
+            .inflate(
+                R.layout.modal_dni,
+                null)
+        builder.setView(customLayout)
+        builder.setPositiveButton("VER PERMISOS", DialogInterface.OnClickListener { dialog, which ->
+            startActivity(Intent().apply {
+                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                data = Uri.fromParts("package", packageName, null)
+            })
+        })
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
+
     fun onPermisosConcedidos() {
 
         if (longitud == "" && latitud == ""){
@@ -288,6 +324,9 @@ class ValidacionPersona : AppCompatActivity() {
                     if (it != null) {
                         imprimirUbicacion(it)
                     } else {
+
+                        mostrarModal()
+
                         Toast.makeText(applicationContext,"No se pudo obtener la ubicación", Toast.LENGTH_LONG).show()
                     }
                 }
@@ -312,6 +351,9 @@ class ValidacionPersona : AppCompatActivity() {
                     Looper.getMainLooper()
                 )
             } catch (e: SecurityException) {
+
+                mostrarModal()
+
                 Toast.makeText(applicationContext,"Tal vez no solicitaste permiso antes", Toast.LENGTH_LONG).show()
 
             }
@@ -333,6 +375,8 @@ class ValidacionPersona : AppCompatActivity() {
                 Toast.makeText(applicationContext,"El usuario concedió todos los permisos", Toast.LENGTH_LONG).show()
 
             } else {
+                mostrarModal()
+
                 Toast.makeText(applicationContext,"Uno o más permisos fueron denegados", Toast.LENGTH_LONG).show()
             }
         }

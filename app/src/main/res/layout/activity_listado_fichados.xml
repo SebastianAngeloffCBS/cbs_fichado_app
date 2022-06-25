@@ -39,6 +39,7 @@
                 android:fontFamily="sans-serif-black"
                 android:text="LISTADO DE FICHADOS"
                 android:textAlignment="center"
+                android:background="@android:color/white"
                 android:textColor="@android:color/black"
                 android:textSize="26dp" />
 

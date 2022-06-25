@@ -74,10 +74,8 @@ class Fichado : AppCompatActivity() {
             if (result.contents == null) {
                 Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
             } else {
-//                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
 
                 cargarFichado(result.contents)
-//                mostrarModal()
 
             }
         } else {
@@ -135,32 +133,14 @@ class Fichado : AppCompatActivity() {
     }
 
     fun leerqr(view: View) {
+
+
+
+
         IntentIntegrator(this).initiateScan()
     }
 
-    fun mostrarModal() {
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("FICHADO")
-
-        val customLayout: View = layoutInflater
-            .inflate(
-                R.layout.modal_dni,
-                null)
-        builder.setView(customLayout)
-
-        builder.setPositiveButton("REGISTRAR FICHARO", DialogInterface.OnClickListener { dialog, which ->
-
-            val editText = customLayout.findViewById<EditText>(R.id.dni)
-
-            var dni = editText.text.toString()
-            validaPersonal(dni)
-        })
-
-        val dialog = builder.create()
-        dialog.show()
-
-    }
 
     fun validaPersonal(dni : String){
 
