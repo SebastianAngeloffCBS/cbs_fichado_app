@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -18,6 +19,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -56,6 +58,18 @@ class ValidacionPersona : AppCompatActivity() {
         dimension = bundle?.getString("dimension").toString()
 
         verificarPermisos()
+
+        if (isDarkThemeOn()){
+            var logocbs = findViewById<ImageView>(R.id.imageView2)
+            logocbs.setImageResource(R.mipmap.logo)
+        }
+
+
+    }
+
+    fun isDarkThemeOn(): Boolean{
+        return resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     fun fichar(ciclo :String, documento:String){

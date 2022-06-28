@@ -2,6 +2,8 @@ package com.cbs.cbs_fichado_app
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
@@ -62,9 +64,19 @@ class Fichado : AppCompatActivity() {
         calendarView.setMaxDate(selectedDate)
 
 
+        if (isDarkThemeOn()){
+
+            var logocbs = findViewById<ImageView>(R.id.imageView2)
+            logocbs.setImageResource(R.mipmap.logo)
+
+        }
 
 
+    }
 
+    fun isDarkThemeOn(): Boolean{
+        return resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

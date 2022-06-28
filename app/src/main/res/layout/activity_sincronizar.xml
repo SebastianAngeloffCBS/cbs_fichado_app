@@ -86,7 +86,7 @@
             <Button
                 android:id="@+id/btn_sincronizar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
                 android:shadowColor="@android:color/white"
                 android:text="SINCRONIZAR"
                 android:drawableEnd="@mipmap/database"
@@ -96,7 +96,9 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:textSize="12dp" />
+                app:strokeColor="#EF3742"
+                app:strokeWidth="0.1dp"
+                android:textSize="20dp" />
 
 
             <ListView
