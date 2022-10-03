@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation3" />
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,8 +59,6 @@
                 android:saveEnabled="false"
                 android:touchscreenBlocksFocus="false" />
 
-
-
             <Button
                 android:id="@+id/btn_leer_qr"
                 android:layout_width="match_parent"
@@ -79,14 +75,12 @@
                 app:strokeWidth="0.1dp"
                 android:onClick="leerqr"/>
 
-
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_marginTop="50dp"
                 app:srcCompat="@mipmap/logo2" />
-
 
             <TextView
                 android:id="@+id/txtderechos"
@@ -99,12 +93,8 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12dp" />
 
-
         </LinearLayout>
 
     </ScrollView>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
