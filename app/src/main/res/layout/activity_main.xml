@@ -93,7 +93,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
                 <EditText
                     android:id="@+id/txtPass"
                     android:layout_width="wrap_content"
@@ -125,9 +124,6 @@
                     android:layout_marginRight="10dp"
                     android:onClick="ocultarpass"
                     app:srcCompat="@mipmap/ojooculto" />
-
-
-
 
             </LinearLayout>
 

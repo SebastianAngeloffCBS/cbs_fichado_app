@@ -40,6 +40,12 @@
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Desarrollo/CBS_Fichado_APP/app/src/main/res/mipmap-anydpi-v26/registrofichadoimg.xml" value="0.1" />
+        <entry key="..\:/Desarrollo/cbs_fichado_app/app/src/main/res/layout/activity_carga_persona.xml" value="0.20416666666666666" />
+        <entry key="..\:/Desarrollo/cbs_fichado_app/app/src/main/res/layout/activity_fichado.xml" value="0.20416666666666666" />
+        <entry key="..\:/Desarrollo/cbs_fichado_app/app/src/main/res/layout/activity_listado_fichados.xml" value="0.20416666666666666" />
+        <entry key="..\:/Desarrollo/cbs_fichado_app/app/src/main/res/layout/activity_listado_personal.xml" value="0.20416666666666666" />
+        <entry key="..\:/Desarrollo/cbs_fichado_app/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Desarrollo/cbs_fichado_app/app/src/main/res/layout/content_fichado.xml" value="0.20416666666666666" />
         <entry key="..\:/cbs_fichado_app/app/src/main/res/layout/activity_carga_persona.xml" value="0.35" />
         <entry key="..\:/cbs_fichado_app/app/src/main/res/layout/activity_datos_personal.xml" value="0.35104166666666664" />
         <entry key="..\:/cbs_fichado_app/app/src/main/res/layout/activity_fichado.xml" value="0.35104166666666664" />
@@ -65,5 +71,8 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressKotlinCodeStyleNotification">
+    <option name="disableForAll" value="true" />
   </component>
 </project>

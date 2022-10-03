@@ -23,16 +23,13 @@ class ListadoFichados : AppCompatActivity() {
 
         cargalistview()
 
-
-
-
     }
 
     fun  cargalistview() {
 
         val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
-        val fila = bd.rawQuery("select * from fichado", null)
+        val fila = bd.rawQuery("select * from fichado order by 1 desc", null)
 
         if (fila.moveToFirst()) {
 

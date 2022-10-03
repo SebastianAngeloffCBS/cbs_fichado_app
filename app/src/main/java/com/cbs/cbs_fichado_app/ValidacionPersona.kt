@@ -281,7 +281,7 @@ class ValidacionPersona : AppCompatActivity() {
             //Dependiendo del dni que ingreso, verifico, cual fue el último ciclo
             val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
             val bd = admin.writableDatabase
-            var queryApp : String = "select * from fichado where dni='" + documento + "'" + "order by id desc limit 1"
+            var queryApp : String = "select * from fichado where dni='" + documento + "'" + " and dimension = '"+ dimension +"' order by id desc limit 1"
             val fila = bd.rawQuery(queryApp, null)
             if (fila.moveToFirst()){
                 var ciclo = fila.getString(6)

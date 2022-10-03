@@ -116,31 +116,48 @@ class Fichado : AppCompatActivity() {
 
     fun reconfigurar(item: MenuItem) {
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("ATENCIÓN")
-        builder.setMessage("SE BORRARA EL USUARIO/A DE LA BASE DE DATOS. ¿ ESTA SEGURO/A?")
-        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        //VALIDAR QUE NO AYAN DATOS SIN SINCRONIZAR CON EL SERVER
+        val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
+        val bd = admin.writableDatabase
+        val fila = bd.rawQuery("select * from fichado where sincronizado = 'no' ", null)
 
-        builder.setPositiveButton("SI"){dialogInterface, which ->
-            val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
-            val bd = admin.writableDatabase
-            val base1 = bd.delete("usuario", null, null)
-            val base2 = bd.delete("persona", null, null)
-            val base3 = bd.delete("fichado", null, null)
+        if (fila.moveToFirst()) {
 
             bd.close()
+            Toast.makeText(this, "TIENE DATOS PENDIENTES DE SINCRONIZAR", Toast.LENGTH_SHORT)
+                .show()
 
-            val fichado = Intent(this, MainActivity::class.java)
+        } else {
 
-            startActivity(fichado)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("ATENCIÓN")
+            builder.setMessage("SE BORRARA EL USUARIO/A DE LA BASE DE DATOS. ¿ ESTA SEGURO/A?")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+            builder.setPositiveButton("SI"){dialogInterface, which ->
+                val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
+                val bd = admin.writableDatabase
+                val base1 = bd.delete("usuario", null, null)
+                val base2 = bd.delete("persona", null, null)
+                val base3 = bd.delete("fichado", null, null)
+
+                bd.close()
+
+                val fichado = Intent(this, MainActivity::class.java)
+
+                startActivity(fichado)
+            }
+
+            builder.setNegativeButton("NO"){dialogInterface, which ->
+                Toast.makeText(applicationContext,"OPERACIÓN CANCELADA", Toast.LENGTH_LONG).show()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+
         }
 
-        builder.setNegativeButton("NO"){dialogInterface, which ->
-            Toast.makeText(applicationContext,"OPERACIÓN CANCELADA", Toast.LENGTH_LONG).show()
-        }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
+
 
     }
 
