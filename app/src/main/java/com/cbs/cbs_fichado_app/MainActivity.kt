@@ -33,9 +33,6 @@ class MainActivity : AppCompatActivity() {
         var btnOcultar =  findViewById<ImageButton>(R.id.btn_ocultar_pass)
         btnOcultar.isVisible = false
 
-
-
-
         val admin = AdminSQLiteOpenHelper(this, "fichadodb", null, 1)
         val bd = admin.writableDatabase
         val fila = bd.rawQuery("select * from usuario", null)

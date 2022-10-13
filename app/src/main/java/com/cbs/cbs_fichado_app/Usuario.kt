@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
      val idusuario : String ? ,
      val usuario : String ?,
      val password: String ?,
-     val perfil  : String?
-)
+     val perfil  : String?,
+     val nombre  : String?,
+     val mail  : String?
+ )
 
 
