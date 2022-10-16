@@ -214,8 +214,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
     fun guardarDatos(usuario : Usuario) {
 
         val admin = AdminSQLiteOpenHelper(this,"fichadodb", null, 1)
