@@ -35,7 +35,6 @@ class Fichado : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityFichadoBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -108,9 +107,22 @@ class Fichado : AppCompatActivity() {
 
     fun cargarFichado(data :String){
 
-        val datosPersonal = Intent(this, ValidacionPersona::class.java)
-        datosPersonal.putExtra("dimension", data)
-        startActivity(datosPersonal)
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("ATENCIÓN")
+        builder.setMessage("Fichado App recoge datos de ubicación para habilitar la monitorización de la nomina de la empresa " +
+                "aunque la aplicación esté cerrada o no se esté usando")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        builder.setNegativeButton("Entendido"){dialogInterface, which ->
+            val datosPersonal = Intent(this, ValidacionPersona::class.java)
+            datosPersonal.putExtra("dimension", data)
+            startActivity(datosPersonal)
+
+        }
+        val alertDialog: androidx.appcompat.app.AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+
 
     }
 
@@ -162,77 +174,7 @@ class Fichado : AppCompatActivity() {
     }
 
     fun leerqr(view: View) {
-
-
-
-
         IntentIntegrator(this).initiateScan()
-    }
-
-
-
-    fun validaPersonal(dni : String){
-
-        //Me conecto al servidor para validar la persona
-        val url = "http://ws.grupocbs.com.ar/api/Fichado/VerificaDocumentoUsuario"
-
-        val queue = Volley.newRequestQueue(this)
-
-        val request: StringRequest = object : StringRequest(
-            Method.POST,
-            url,
-            Response.Listener { response ->
-                try
-                {
-                   val mapper = jacksonObjectMapper()
-
-                    val userData: Personal = mapper.readValue(response)
-
-                    if (userData.codemp != "0")
-                    {
-
-                        val validarPersona = Intent(this, ValidacionPersona()::class.java)
-
-                        validarPersona.putExtra("Persona", userData.nombreapellido)
-
-                        startActivity(validarPersona)
-
-                    }
-                    else
-                    {
-                        var progressBar = findViewById<ProgressBar>(R.id.progressBar)
-                        progressBar.isVisible = false
-                        var boton = findViewById<Button>(R.id.btn_conectar)
-                        boton.isVisible = true
-
-
-                        Toast.makeText(this, "DNI INCORRECTO", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                }
-                catch (e: JSONException)
-                {
-                    e.printStackTrace()
-                }
-            },
-            Response.ErrorListener { error -> // method to handle errors.
-                Toast.makeText(
-                    this,
-                    "Fail to get response = $error",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }) {
-            override fun getParams(): Map<String, String> {
-                val params: MutableMap<String, String> = HashMap()
-
-                params["dni"] = dni
-
-                return params
-            }
-        }
-        queue.add(request)
-
     }
 
     fun soporte(item: MenuItem) {

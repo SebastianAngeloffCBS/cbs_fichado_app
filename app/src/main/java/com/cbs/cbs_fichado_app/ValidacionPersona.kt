@@ -17,6 +17,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -47,7 +48,6 @@ class ValidacionPersona : AppCompatActivity() {
     private val CODIGO_PERMISOS_UBICACION_SEGUNDO_PLANO = 2106
     private var haConcedidoPermisos = false
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,7 +63,6 @@ class ValidacionPersona : AppCompatActivity() {
             var logocbs = findViewById<ImageView>(R.id.imageView2)
             logocbs.setImageResource(R.mipmap.logo)
         }
-
 
     }
 
@@ -179,7 +178,6 @@ class ValidacionPersona : AppCompatActivity() {
         }
         queue.add(request)
 
-
     }
 
     fun buscarIdUsuario() : String{
@@ -194,13 +192,11 @@ class ValidacionPersona : AppCompatActivity() {
             iduser = fila.getString(0)
         }
 
-    return iduser
+        return iduser
 
     }
 
     fun insertaDatoLocal(nombre:String,dni:String,fechahora:String,ciclo:String){
-
-
 
         val admin = AdminSQLiteOpenHelper(this,"fichadodb", null, 1)
         val bd = admin.writableDatabase
@@ -301,8 +297,6 @@ class ValidacionPersona : AppCompatActivity() {
 
     }
 
-    //-----------------------------------------------------------------------------------------------------------------------------------
-
     fun imprimirUbicacion(ubicacion: Location) {
         latitud = ubicacion.latitude.toString()
         longitud = ubicacion.longitude.toString()
@@ -325,8 +319,6 @@ class ValidacionPersona : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
-
-
 
     fun onPermisosConcedidos() {
 
@@ -432,5 +424,6 @@ class ValidacionPersona : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED
         }
     }
+
 
 }
