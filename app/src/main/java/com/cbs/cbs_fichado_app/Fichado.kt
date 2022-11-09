@@ -1,9 +1,7 @@
 package com.cbs.cbs_fichado_app
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
@@ -14,8 +12,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -32,7 +28,6 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.android.material.navigation.NavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONException
-import java.util.jar.Manifest
 
 
 class Fichado : AppCompatActivity() {
@@ -111,27 +106,22 @@ class Fichado : AppCompatActivity() {
     }
 
     fun cargarFichado(data :String){
-        /**CUANDO SE CARGUE LA INSTANCIA LE SOLICITO LOS PERMISOS*/
 
-        enableLocation()
-
-        /*--------------------------------------*/
-       val builder = androidx.appcompat.app.AlertDialog.Builder(this)
-       /* builder.setTitle("Fichado APP")
-       builder.setMessage(
-           "- Accede a tu ubicación para la monitorización de la nomina de la empresa aunque la aplicación no se esté usando \n - Recuerde tener habilitada su ubicacion")
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("ATENCIÓN")
+        builder.setMessage("Fichado App recoge datos de ubicación para habilitar la monitorización de la nomina de la empresa " +
+                "aunque la aplicación esté cerrada o no se esté usando")
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
-        builder.setNegativeButton("✔ OK")*/
-
+        builder.setNegativeButton("Entendido"){dialogInterface, which ->
             val datosPersonal = Intent(this, ValidacionPersona::class.java)
             datosPersonal.putExtra("dimension", data)
-           startActivity(datosPersonal)
+            startActivity(datosPersonal)
 
-
-       val alertDialog: androidx.appcompat.app.AlertDialog = builder.create()
-       alertDialog.setCancelable(false)
-       alertDialog.show()
+        }
+        val alertDialog: androidx.appcompat.app.AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
 
 
     }
@@ -218,50 +208,4 @@ class Fichado : AppCompatActivity() {
         startActivity(listado)
     }
 
-    /*TODO*PERMISOS APPP*/
-
-    /**esta dado el permiso o no?*/
-    private fun isPermissionsGranted() = ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-
-
-    companion object {
-        const val REQUEST_CODE_LOCATION = 0
-        var isMyLocationEnabled =false
-    }
-    /*si no esta dado */
-    private fun requestLocationPermission() {
-        /*SI LE MOSTRAMOS ANTES LOS PERMISOS Y LOS RECHAZO */
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-               android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Toast.makeText(this, "No podemos monitorizar la nonima sin acceso a su ubicacion", Toast.LENGTH_SHORT).show()
-        } else {
-            /*QUE LOS SOLICITE*/
-            ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_CODE_LOCATION)
-        }
-    }
-    private fun enableLocation(){
-        if(isPermissionsGranted()){
-            isMyLocationEnabled=true
-        }else{
-            requestLocationPermission()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-
-        when(requestCode){
-            REQUEST_CODE_LOCATION -> if(grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                isMyLocationEnabled = true
-            }else{
-                Toast.makeText(this, "Para activar la localización ve a ajustes y acepta los permisos", Toast.LENGTH_SHORT).show()
-            }
-            else -> {}
-        }
-    }
 }
